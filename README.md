@@ -1,11 +1,28 @@
 # Unter 
 
 ## Set up
+0. Learn a little bit of `React` & `JS`
+    * [React Crash Course](https://www.youtube.com/watch?v=w7ejDZ8SWv8)
+    * [React Crash Course](https://www.youtube.com/watch?v=W6NZfCO5SIk)
 1. [NodeJS and npm setup](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
 2. Once you setup the node and npm, run `npm install` in the current directory 
 
-## Project Description
-## Project Diagrams
+## Architecture/Dev Style 
+
+### Component Design 
+* If you are designing a new component, head over to the `./components` and create a new directory with the name of the component, eg) `Table`. <br>
+ ```
+  ├── /components 
+    |   ├── /Table
+    |   |   ├── Table.js
+    |   |   ├── Table.styles.js
+    |   |   ├── Table.test.js
+```
+* Try to abstract out common stylistic structures into components
+
+### Additional readings
+Feel free to read through this if you have the chance
+* [ES7-Conventions](https://medium.com/@fakiolinho/reactjs-and-es7-bbedb9862e61)
 
 
 ## Available Scripts
