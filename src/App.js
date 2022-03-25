@@ -1,6 +1,6 @@
-import './App.css';
+import './styles/App.css';
 
-function App() {
+function UnterApp() {
   return (
     <div className="Unter">
       <header className="Unter-header">
@@ -12,4 +12,4 @@ function App() {
   );
 }
 
-export default App;
+export default UnterApp;
