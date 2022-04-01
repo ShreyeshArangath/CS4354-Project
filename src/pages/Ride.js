@@ -1,6 +1,6 @@
 import Header from '../components/Header'
+import Location_Input from '../components/Location_Input';
 import Button from '../components/Button'
-import { Link } from 'react-router-dom'
 
 import React from 'react';
 
@@ -10,9 +10,13 @@ function Ride() {
   return (
     <div className="Unter">
       <Header />
-      <h2>
-      Ride
-      </h2>
+      <div>
+        <h2>
+        Find A Ride
+        </h2>
+
+        <Location_Input  title="Starting Location"/>
+      </div>
     </div>
   );
 }

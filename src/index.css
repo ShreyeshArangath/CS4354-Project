@@ -16,44 +16,37 @@ code {
   text-align: center;
 }
 
-.Unter-header {
-  background-color: #518065;
-  min-height: 15vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-  width:100%;
-  text-align:center;
-}
-
 .header-main__wrapper {
+  background-color: #518065;
   position: sticky;
-  position: -webkit-sticky;
-  top: 0;
+  min-height: 80px;
   width: 100%;
   margin: 0 0 auto 0;
   z-index: 1024!important;
-  height: 60px;
-  background-color: var(--gfg-tint-color);
   opacity: 1;
-  transition: position .4s,opacity .2s!important;
 }
 
 .header-main__logo {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  text-align: center;
-  height: 65px;
-  display: flex;
-  overflow: hidden;
-  text-decoration: none;
-  transform: translate(-50%,-50%);
-  align-items: center;
-  align-self: center;
-  vertical-align: middle;
-  align-content: center;
+  max-height: 80px;
+  max-width: 80px;
+  margin: 0 auto;
+  vertical-align:super;
+}
+
+.w3-left {
+  float: left!important;
+}
+
+.w3-padding-16 {
+  padding-top: 16px!important;
+  padding-bottom: 16px!important;
+  padding-left: 16px;
+  padding-right: 16px;
+  margin-left: 16px;
+  margin-right: 16px;
+}
+
+.w3-boarder-rad-10{
+  border-radius: 10px;
+
 }
