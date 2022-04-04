@@ -14,7 +14,11 @@ code {
 
 .Unter {
   text-align: center;
+  justify-content: center;
+  align-items: center;
 }
+
+
 
 .header-main__wrapper {
   background-color: #518065;
@@ -48,5 +52,22 @@ code {
 
 .w3-boarder-rad-10{
   border-radius: 10px;
+}
 
+table {
+  border: 2px solid #518065;
+  width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
+  border-collapse: collapse;
+  border-radius: 10px;
+}
+
+thead th:nth-child(1) {
+  width: 30%;
+}
+
+th, td {
+  padding: 20px;
 }

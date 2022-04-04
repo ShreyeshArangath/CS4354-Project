@@ -6,9 +6,6 @@ import React from 'react'
 //<Link to='../pages/Drive'> <Button text='Drive' color='green'/> </Link>
 function Home() {
 
-  const onClick = (e) =>{
-    console.log('Clicked' + e.text)
-  }
 
   return (
     <div className="Unter">
@@ -17,8 +14,8 @@ function Home() {
         Welcome
       </h2>
       <Link to='/Drive'><Button text='Drive' color='green'/></Link>
-      <Link to='/Ride'><Button text='Ride' color='orange' onClick={onClick}/></Link>
-      <Link to='/Admin'><Button text='Admin' color='red' onClick={onClick}/></Link>
+      <Link to='/Ride'><Button text='Ride' color='orange' /></Link>
+      <Link to='/Admin'><Button text='Admin' color='red' /></Link>
     </div>
   );
 }
