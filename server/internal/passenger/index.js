@@ -1,6 +1,7 @@
 class PassengerController {
-    constructor(repository) {
-        this.repository = repository
+    constructor(passengerRepo, tripRepo) {
+        this._passengerRepo = passengerRepo
+        this._tripRepo = tripRepo
     }
 }
 

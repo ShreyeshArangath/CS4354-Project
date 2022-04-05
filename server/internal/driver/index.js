@@ -1,6 +1,7 @@
 class DriverController {
-    constructor(repository) {
-        this._repository = repository
+    constructor(driverRepo, tripRepo) {
+        this._driverRepo = driverRepo
+        this._tripRepo = tripRepo
     }
 }
 
