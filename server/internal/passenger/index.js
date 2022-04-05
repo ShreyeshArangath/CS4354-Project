@@ -1,5 +1,5 @@
 class Passenger {
-    constructor() {
-        
+    constructor(repository) {
+        this.repository = repository
     }
 }
