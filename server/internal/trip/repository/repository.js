@@ -38,3 +38,5 @@ class TripRepository {
         // Delete from trip table 
     }
 }
+
+module.exports = {TripRepository}

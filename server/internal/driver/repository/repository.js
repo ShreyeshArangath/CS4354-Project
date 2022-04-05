@@ -6,7 +6,7 @@ class DriverRepository {
     getDriver(userID) {
         // GET driver details
     }
-    
+
     createDriver(userID, firstName, lastName, DOB, totalTrips, ratings) {
         // INSERT into the driver table  
     }
@@ -19,3 +19,5 @@ class DriverRepository {
         // Delete from Driver
     }
 }
+
+module.exports = {DriverRepository}

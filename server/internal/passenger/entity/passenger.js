@@ -8,3 +8,5 @@ class Passenger {
         this.ratings = ratings
     }
 }
+
+module.exports = {Passenger}

@@ -5,3 +5,5 @@ class AdminController {
         this._tripRepo = tripRepo
     }
 }
+
+module.exports = {AdminController}

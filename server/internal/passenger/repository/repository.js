@@ -19,3 +19,5 @@ class PassengerRepository {
         // Delete from Driver
     }
 }
+
+module.exports = {PassengerRepository}

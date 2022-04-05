@@ -8,3 +8,5 @@ class Driver {
         this.ratings = ratings
     }
 }
+
+module.exports = {Driver}
