@@ -3,13 +3,13 @@ class PassengerRepository {
         this.database = database
     }
  
-    createTrip(passengerId, startingLocation, destination) {
+    createTrip(passengerId, startingLocation, destination, numPassenger) {
         // Insert into Trip Table 
         // Insert into PassengerTrips Table  
     }
 
-    cancelTrip() {
-        // Delete from PassengerTrips 
+    cancelTrip(tripId) {
+        // Delete from Trip 
     }
 
     retrieveTrip(passengerId, tripId) {
