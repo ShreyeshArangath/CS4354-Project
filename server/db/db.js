@@ -19,7 +19,6 @@ class DBHelper{
           });
     }
 
-
     stopConnection() {
         this.connection.end();
     }
