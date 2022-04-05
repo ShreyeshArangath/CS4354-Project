@@ -1,18 +1,21 @@
 class DriverRepository {
     constructor(database) {
-        this.database = database
+        this._database = database
     }
 
-    acceptTrip(driverId, tripId) {
-        // Insert into DriverTrip table 
-        // Update Trip table state to In Progress 
+    getDriver(userID) {
+        // GET driver details
+    }
+    
+    createDriver(userID, firstName, lastName, DOB, totalTrips, ratings) {
+        // INSERT into the driver table  
     }
 
-    updateTripState(tripId, state) {
-        // Update Trip table state to the given state 
+    updateDriver(userID, totalTrips, ratings) {
+        // UPDATE Driver trip total and ratings 
     }
 
-    cancelTrip(tripId) {
-        // Delete from Trip table 
+    deleteDriver(userID){
+        // Delete from Driver
     }
 }

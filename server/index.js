@@ -6,7 +6,7 @@ const cors = require('cors')
 const bodyParser = require('body-parser');
 
 // Internal Dependencies 
-const { DBHelper } = require('./db/DB');
+const { DBHelper } = require('./shared/DB');
 const {PORT} = require("./config/dev");
 
 // Dependency Injection 

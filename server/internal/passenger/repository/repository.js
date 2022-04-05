@@ -1,18 +1,21 @@
 class PassengerRepository {
     constructor(database) {
-        this.database = database
+        this._database = database
     }
  
-    createTrip(passengerId, startingLocation, destination, numPassenger) {
-        // Insert into Trip Table 
-        // Insert into PassengerTrips Table  
+    getPassenger(userID) {
+        // GET passenger details
+    }
+    
+    createPassenger(userID, firstName, lastName, DOB, totalTrips, ratings) {
+        // INSERT into the driver table  
     }
 
-    cancelTrip(tripId) {
-        // Delete from Trip 
+    updatePassenger(userID, totalTrips, ratings) {
+        // UPDATE Driver trip total and ratings 
     }
 
-    retrieveTrip(passengerId, tripId) {
-        // Get row from Trip table based on tripId 
+    deletePassenger(userID){
+        // Delete from Driver
     }
 }

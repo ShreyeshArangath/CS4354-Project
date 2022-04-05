@@ -1,8 +1,8 @@
 class Passenger {
-    constructor(userID, firstName, lName, DOB, totalTrips, ratings) {
+    constructor(userID, firstName, lastName, DOB, totalTrips, ratings) {
         this.userID = userID
         this.firstName = firstName
-        this.lName = lName
+        this.lastName = lastName
         this.DOB = DOB
         this.totalTrips = totalTrips
         this.ratings = ratings
