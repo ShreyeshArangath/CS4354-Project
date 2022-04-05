@@ -1,12 +1,12 @@
 class Trip {
     // From & To will conform to the Address class defined in the shared package 
-    constructor(tripID, state, from, to) {
+    constructor(tripID, state, from, to, tripRequestedTime) {
         this.tripID = tripID
         this.state = state
         this.from = from 
         this.to = to
         this.estimatedPrice = getEstimatedPrice(from, to)
-        this.ETA = getETA(from, to) 
+        this.tripRequestedTime = tripRequestedTime 
     }
 
     getEstimatedPrice(from, to){
