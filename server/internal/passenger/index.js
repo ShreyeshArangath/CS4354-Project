@@ -1,9 +1,11 @@
-class PassengerController {
-    constructor(passengerRepo, tripRepo, paymentRepo) {
-        this._passengerRepo = passengerRepo
-        this._tripRepo = tripRepo
-        this._paymentRepo = paymentRepo
-    }
+const express = require('express');
+
+function getPassengerRouter(passengerController) {
+    const router = express.Router()
+    router.get('/', async function(req, res, next) {
+        //TODO: GET request 
+    });    
+    return router; 
 }
 
-module.exports = {PassengerController}
+module.exports = {getPassengerRouter}
