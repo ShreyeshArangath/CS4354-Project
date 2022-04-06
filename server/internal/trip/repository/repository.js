@@ -33,10 +33,6 @@ class TripRepository {
         // Get all trips that conform to the given state
         // Look into pagination  
     }
-
-    cancelTrip(tripId) {
-        // Delete from trip table 
-    }
 }
 
 module.exports = {TripRepository}
