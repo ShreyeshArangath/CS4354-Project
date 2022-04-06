@@ -1,28 +1,33 @@
-class DBHelper{
-    constructor(mysql, host, user, password, database) {
-     this.connection = mysql.createConnection({
-        host     : host,
-        user     : user,
-        password : password,
-        database : database
-      });
+class DBHelper {
+    constructor(mysql, config, pagination) {
+        this.config = config
+        this.pagination = pagination
+        this.mysql = mysql
+        this.connection = null
     }
 
-    establishConnection() {
-        this.connection.connect((err) => {
-            if (err) {
-                console.error("There was an issue connecting to MySQL: Error Stack: " + err.stack)
-                return
-            }
-            console.log('Connected with to MYSQL with Thread ID: ' + this.connection.threadId);
-
-          });
+    async createConnection() {
+        return  await this.mysql.createConnection({
+            host: this.config["host"], 
+            user: this.config["user"], 
+            password: this.config["password"], 
+            database: this.config["database"]
+        })
     }
 
-    stopConnection() {
-        this.connection.end();
+    async stopConnection() {
+        return await connection.end();
     }
-    
-} 
 
-module.exports = {DBHelper}
+    async query(sql, params) {
+        const connection = await this.createConnection()
+        var data, error; 
+        const [results, ] = await connection.execute(sql, params);
+        return results;
+    }
+
+}
+
+module.exports = {
+    DBHelper
+}

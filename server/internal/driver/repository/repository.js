@@ -3,8 +3,11 @@ class DriverRepository {
         this._database = database
     }
 
-    getDriver(userID) {
+    async getDriver(userID) {
         // GET driver details
+        const rows = await this._database.query('SELECT * FROM `driver` WHERE `userID` = ?', [userID])
+        const data = this._database.pagination.emptyOrRows(rows)
+        return data 
     }
 
     createDriver(userID, firstName, lastName, DOB, totalTrips, ratings) {

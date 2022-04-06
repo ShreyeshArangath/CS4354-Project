@@ -7,9 +7,9 @@ CREATE TABLE DRIVER(
 	fname varchar(25) NOT NULL, 
 	lame varchar(25) NOT NULL, 
 	dob date NOT NULL, 
-	userID int NOT NULL, 
+	userID varchar(50) NOT NULL, 
 	totalTrips int NOT NULL DEFAULT 0,
-	rating int NOT NULL DEFAULT 0,
+	rating decimal(3, 2) NOT NULL DEFAULT 0.00,
 	CONSTRAINT pk_driver primary key(userID) 
 );
 
@@ -18,9 +18,9 @@ CREATE TABLE PASSENGER(
 	fname varchar(25) NOT NULL, 
 	lame varchar(25) NOT NULL, 
 	dob date NOT NULL, 
-	userID int NOT NULL, 
+	userID varchar(50) NOT NULL, 
 	totalTrips int NOT NULL DEFAULT 0,
-	rating int NOT NULL DEFAULT 0,
+	rating decimal(3, 2) NOT NULL DEFAULT 0.00,
 	CONSTRAINT pk_passenger primary key(userID)
 );
 
@@ -38,7 +38,7 @@ CREATE TABLE TRIP(
 DROP TABLE IF EXISTS PASSENGER_TRIPS; 
 CREATE TABLE PASSENGER_TRIPS(
 	tripID int NOT NULL, 
-	passengerID int NOT NULL,
+	passengerID varchar(50) NOT NULL,
 	CONSTRAINT pk_pass_trip PRIMARY KEY(tripID, passengerID), 
 	CONSTRAINT fk_passengerTrips_passengerID FOREIGN KEY (passengerID) references PASSENGER(userID), 
 	CONSTRAINT fk_passengerTrips_tripID FOREIGN KEY (tripID) references TRIP(tripID) ON DELETE CASCADE ON UPDATE CASCADE 
@@ -47,7 +47,7 @@ CREATE TABLE PASSENGER_TRIPS(
 DROP TABLE IF EXISTS DRIVER_TRIPS; 
 CREATE TABLE DRIVER_TRIPS(
 	tripID int NOT NULL, 
-	driverID int NOT NULL,
+	driverID varchar(50) NOT NULL,
 	CONSTRAINT pk_driver_trip PRIMARY KEY(tripID, driverID), 
 	CONSTRAINT fk_driverTrips_passengerID FOREIGN KEY (driverID) references DRIVER(userID), 
 	CONSTRAINT fk_driverTrips_tripID FOREIGN KEY (tripID) references TRIP(tripID) ON DELETE CASCADE ON UPDATE CASCADE
@@ -55,7 +55,7 @@ CREATE TABLE DRIVER_TRIPS(
 
 DROP TABLE IF EXISTS PAYMENT_METHODS; 
 CREATE TABLE PAYMENT_METHODS(
-	userID int NOT NULL, 
+	userID varchar(50) NOT NULL, 
 	paymentMethod varchar(20) NOT NULL DEFAULT "Wire Transfer", 
 	CONSTRAINT pk_payment_methods PRIMARY KEY(userID, paymentMethod), 
 	CONSTRAINT fk_paymentMethods_userID  FOREIGN KEY(userID) references PASSENGER(userID) ON DELETE CASCADE ON UPDATE CASCADE 
