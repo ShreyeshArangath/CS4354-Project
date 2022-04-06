@@ -12,6 +12,10 @@ class DriverController {
     async getDriver(userID) {
         return await this._driverRepo.getDriver(userID)
     }
+
+    async getTrips(state = "IN_QUEUE", page = 1, listPerPage = 10) {
+        return await this._tripRepo.retrieveTripsByState(state, page, listPerPage)
+    }
 }
 
 module.exports = {DriverController}

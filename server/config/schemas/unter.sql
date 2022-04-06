@@ -26,7 +26,7 @@ CREATE TABLE PASSENGER(
 
 DROP TABLE IF EXISTS TRIP; 
 CREATE TABLE TRIP(
-	tripID int NOT NULL, 
+	tripID int NOT NULL AUTO_INCREMENT, 
 	price int NOT NULL DEFAULT 0, 
 	state ENUM('IN_PROGRESS', 'IN_QUEUE', 'COMPLETED') NOT NULL DEFAULT 'IN_QUEUE', 
 	toAddress varchar(50) NOT NULL, 
@@ -63,7 +63,7 @@ CREATE TABLE PAYMENT_METHODS(
 
 DROP TABLE IF EXISTS Payment; 
 CREATE TABLE Payment(
-	transactionID int NOT NULL, 
+	transactionID int NOT NULL AUTO_INCREMENT, 
 	tripID int NOT NULL, 
 	paymentMethod varchar(20) NOT NULL DEFAULT "Wire Transfer", 
 	CONSTRAINT pk_payment PRIMARY KEY(transactionID, tripID), 

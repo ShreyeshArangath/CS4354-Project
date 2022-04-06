@@ -29,9 +29,15 @@ class TripRepository {
           // GET row from the trip table
     }
 
-    retrieveTripsByState(state){
+    async retrieveTripsByState(state, page, listPerPage){
         // Get all trips that conform to the given state
-        // Look into pagination  
+        // Look into pagination 
+        const offset = this._database.pagination.getOffset(page, listPerPage)
+        const sql = "SELECT * FROM `TRIP` WHERE `state`=?"
+        const params = [state]
+        const rows = await this._database.query(sql, params)
+        const data = this._database.pagination.emptyOrRows(rows)
+        return data 
     }
 }
 
