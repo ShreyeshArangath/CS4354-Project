@@ -22,6 +22,8 @@ const { TripRepository } = require('./internal/trip/repository/repository');
 const { PaymentRepository } = require('./internal/payment/repository/repository');
 const { getDriverRouter } = require('./internal/driver');
 const { getPassengerRouter } = require('./internal/passenger');
+const { getAdminRouter } = require('./internal/admin');
+const { AdminController } = require('./internal/admin/controller/controller');
 
 
 // App Config  
@@ -48,10 +50,12 @@ const paymentRepo = new PaymentRepository(dbHelper)
 
 const driver = new DriverController(driverRepo, tripRepo, paymentRepo)
 const passenger = new PassengerController(passengerRepo, tripRepo, paymentRepo)
+const admin = new AdminController(passengerRepo, driverRepo, tripRepo)
 
 // Routes 
 app.use('/api/driver',getDriverRouter(driver))
 app.use('/api/passenger', getPassengerRouter(passenger))
+app.use('/api/admin', getAdminRouter(admin))
 
 
 // Server Config 

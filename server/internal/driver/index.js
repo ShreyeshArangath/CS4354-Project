@@ -2,21 +2,12 @@ const express = require('express');
 
 function getDriverRouter(driverController) {
     const router = express.Router()
-
-    router.get('/', async function(req, res, next) {
-        try {
-            const data =  await driverController.getDriver("elon.musk@twitter.com")
-            res.json(data)
-        } catch(err) {
-            const errMessage = `Error while getting the driver information ` + err.message 
-            res.status(404)
-            res.send(errMessage)
-            next(err);
-        }
-    
-    });    
-
-    // GET: List of all trips that are In-Queue
+    /**
+        * @api {get} api/driver/trips       Get a list of the trips that are In-Queue  
+        * @apiName GetTripsInQueue
+        * @apiGroup Driver
+        * @apiSuccess {data}                List of all In-Queue trips  
+    */
     router.get('/trips', async function(req, res, next) {
         try {
             const data = await driverController.getTrips()
@@ -29,7 +20,13 @@ function getDriverRouter(driverController) {
         }
     })
 
-    // GET: Based on a given id get the trip information 
+    /**
+        * @api {get} api/driver/trips/:tripID       Get a list of the trips that are In-Queue  
+        * @apiName GetTripsInQueue
+        * @apiGroup Driver        
+        * @apiParam tripID                          ID of the trip selected by the driver           
+        * @apiSuccess {data}                        Details of the as defined in the entities  
+    */
     router.get("/trips/:tripID", async function(req, res, next) {
         try {
             const tripID = req.params.tripID 
@@ -48,18 +45,31 @@ function getDriverRouter(driverController) {
         } 
     } )
 
+    /**
+        * @api {get} api/driver/trips/accept/:tripID&:driverID      Accept a trip that is In-Queue  
+        * @apiName AcceptTrip
+        * @apiGroup Driver        
+        * @apiParam tripID                          ID of the trip selected by the driver  
+        * @apiParam driverID                        ID of the driver          
+        * @apiSuccess {update}                      Metadata pertaining to updating state of the trip
+        * @apiSuccess {insert}                      Metadata pertaining to inserting data into the DriverTrip table
+    */
     router.post("/trips/accept/:tripID&:driverID", async function(req, res, next) {
         try {
             const tripID = req.params.tripID
             const driverID = req.params.driverID
 
             if (tripID && driverID) {
-                const [insertData, updateStateData] = await driverController.acceptTrip(tripID, driverID)
+                const [insertionMetadata, updateStateMetadata] = await driverController.acceptTrip(tripID, driverID)
                 res.json({
-                    "update": updateStateData,
-                    " insert": insertData
+                    "update": updateStateMetadata,
+                    "insert": insertionMetadata
                 })
-            }      
+            } 
+            else {
+                res.status(400); 
+                res.send("Check request body parameters")     
+            }       
             
         } catch(err) {
             const errMessage = "Error while accepting the ride" + err.message

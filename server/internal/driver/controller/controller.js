@@ -8,7 +8,6 @@ class DriverController {
         this._paymentRepo = paymentRepo
     }
 
-    // Returns (data, err)
     async getDriver(userID) {
         return await this._driverRepo.getDriver(userID)
     }
@@ -22,9 +21,6 @@ class DriverController {
     }
 
     async acceptTrip(tripID, driverID) {
-        // Algorithm: 
-        // 1. Add trip to the driver-trips table 
-        // 2. Change the trip state to in-progress
         const state = "IN_PROGRESS"
         const insertData = await this._tripRepo.insertIntoDriverTrips(driverID, tripID)
         const updateStateData = await this._tripRepo.updateTripState(tripID, state)
