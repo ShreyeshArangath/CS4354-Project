@@ -2,27 +2,43 @@ class TripRepository {
     constructor(database){
         this._database = database
     }
-
-    requestTrip(passengerId, startingLocation, destination, numPassenger) {
-        // Insert into Trip Table 
-        // Insert into PassengerTrips Table  
+    // passengerId, startingLocation, destination, numPassenger
+    async insertIntoPassengerTrips(passengerId, tripId) {
+        const sql = "INSERT INTO `PASSENGER_TRIPS` VALUES (?, ?)"
+        const params = [tripId, passengerId]
+        const rows = await this._database.query(sql, params)
+        return rows 
     }
 
-    acceptTrip(driverId, tripId) {
+    async insertIntoDriverTrips(driverId, tripId) {
         // Insert into DriverTrip table 
         // Update Trip table state to In Progress 
+        const sql = "INSERT INTO `DRIVER_TRIPS` VALUES (?, ?)"
+        const params = [tripId, driverId]
+        const rows = await this._database.query(sql, params)
+        return rows 
     }
 
-    updateTripState(tripId, state) {
-        // Update Trip table state to the given state 
+    async updateTripState(tripId, state) {
+        // Update Trip table state to the given state
+        const sql = "UPDATE `TRIP` SET `state`=? WHERE `tripID`=?"
+        const params = [state, tripId]
+        const rows = await this._database.query(sql, params)
+        return rows 
     }
 
     cancelTrip(tripId) {
         // Delete from Trip table 
     }
 
-    insertTrip(tripId, price, state, to, from, time) {
+    async insertTrip(trip) {
         // Insert into the Trip table 
+        const sql = "INSERT INTO `TRIP` (PRICE, STATE, toAddress, fromAddress, tripRequestedTime) VALUES(?, ?, ?, ?, CURTIME());"
+        const params = [trip.price, trip.state, trip.from, trip.to]
+        const rows = await this._database.query(sql, params)
+        const lastInsertID  = rows.insertId
+        
+        return lastInsertID
     }
 
     retrieveTripByUserID(passengerId, tripId) {

@@ -32,6 +32,7 @@ CREATE TABLE TRIP(
 	toAddress varchar(50) NOT NULL, 
 	fromAddress varchar(50) NOT NULL, 
 	tripRequestedTime datetime NOT NULL, 
+    numPassengers int NOT NULL DEFAULT 1, 
 	CONSTRAINT pk_trip PRIMARY KEY(tripID)
 );
 
@@ -49,7 +50,7 @@ CREATE TABLE DRIVER_TRIPS(
 	tripID int NOT NULL, 
 	driverID varchar(50) NOT NULL,
 	CONSTRAINT pk_driver_trip PRIMARY KEY(tripID, driverID), 
-	CONSTRAINT fk_driverTrips_passengerID FOREIGN KEY (driverID) references DRIVER(userID), 
+	CONSTRAINT fk_driverTrips_driverID FOREIGN KEY (driverID) references DRIVER(userID), 
 	CONSTRAINT fk_driverTrips_tripID FOREIGN KEY (tripID) references TRIP(tripID) ON DELETE CASCADE ON UPDATE CASCADE
 );
 

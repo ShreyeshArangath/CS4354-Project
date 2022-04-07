@@ -20,6 +20,16 @@ class DriverController {
     async getTripById(tripId) { 
         return await this._tripRepo.getTripByID(tripId)
     }
+
+    async acceptTrip(tripID, driverID) {
+        // Algorithm: 
+        // 1. Add trip to the driver-trips table 
+        // 2. Change the trip state to in-progress
+        const state = "IN_PROGRESS"
+        const insertData = await this._tripRepo.insertIntoDriverTrips(driverID, tripID)
+        const updateStateData = await this._tripRepo.updateTripState(tripID, state)
+        return [insertData, updateStateData]
+    }
 }
 
 module.exports = {DriverController}
