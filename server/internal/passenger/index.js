@@ -48,6 +48,37 @@ function getPassengerRouter(passengerController) {
     });    
 
 
+    /**
+        * @api {get} api/passenger/trips/driver/:tripID       Get the driver details of a specific trip
+        * @apiName GetDriverDetails
+        * @apiGroup Passenger
+        * @apiParam tripID                          ID of the trip selected by the passenger           
+        * @apiSuccess {driverData}                  Deletion metadata   
+    */
+    router.get("/trips/driver/:tripID", async function(req, res, next) {
+        try {
+            const tripID = req.params.tripID
+            if (tripID){
+                const [driverData, getDriverIDMetadata, getDriverDetailsMetadata] = await passengerController.getDriverInfo(tripID)
+                res.json({
+                    "driverData": driverData, 
+                    "getDriverIDMetadata": getDriverIDMetadata, 
+                    "getDriverDetailsMetadata": getDriverDetailsMetadata
+                })
+            }
+            else {
+                res.status(400); 
+                res.send("Check request body parameters")     
+            }       
+            
+        }catch(err) {
+            const errMessage = "Error while finding driver details: " + err.message
+            res.status(404)
+            res.send(errMessage)
+            next(err);
+        }
+    })
+
     return router; 
 }
 

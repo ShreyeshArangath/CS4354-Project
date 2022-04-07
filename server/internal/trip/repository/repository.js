@@ -15,6 +15,14 @@ class TripRepository {
         return await this._database.query(sql, params)
     }
 
+    async getDriverIDFromTrip(tripId) {
+        const sql = "SELECT `driverID` from `DRIVER_TRIPS` WHERE `tripID`=?"
+        const params = [tripId]
+        const metadata = await this._database.query(sql, params)
+        const data = this._database.pagination.emptyOrRows(metadata)
+        return [data, metadata]
+    }
+
     async updateTripState(tripId, state) {
         const sql = "UPDATE `TRIP` SET `state`=? WHERE `tripID`=?"
         const params = [state, tripId]

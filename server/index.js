@@ -49,7 +49,7 @@ const tripRepo = new TripRepository(dbHelper)
 const paymentRepo = new PaymentRepository(dbHelper)
 
 const driver = new DriverController(driverRepo, tripRepo, paymentRepo)
-const passenger = new PassengerController(passengerRepo, tripRepo, paymentRepo)
+const passenger = new PassengerController(passengerRepo, driverRepo, tripRepo, paymentRepo)
 const admin = new AdminController(passengerRepo, driverRepo, tripRepo)
 
 // Routes 
