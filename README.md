@@ -3,9 +3,12 @@
 ## Set up
 0. Learn a little bit of `React` & `JS`
     * [React Crash Course](https://www.youtube.com/watch?v=w7ejDZ8SWv8)
-    * [React Crash Course](https://www.youtube.com/watch?v=W6NZfCO5SIk)
+    * [JS Crash Course](https://www.youtube.com/watch?v=W6NZfCO5SIk)
 1. [NodeJS and npm setup](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
 2. Once you setup the node and npm, run `npm install` in the current directory 
+
+## TroubleShooting 
+1. [MySQL Permission Issues](https://stackoverflow.com/questions/44946270/er-not-supported-auth-mode-mysql-server)
 
 ## Architecture/Dev Style 
 
