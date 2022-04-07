@@ -1,7 +1,6 @@
 import Header from '../components/Header'
 import DriverTrips from '../components/DriverTrips'
 import {useState} from 'react'
-
 import React from 'react';
 
 
@@ -27,14 +26,16 @@ function Drive() {
       }
   ])
 
-const totalItems = 2; //Get this from API request 
+  const totalItems = 2; //Get this from API request 
 
-const itemsPerPage = 10;
-const [page, setPage] = useState(1);
+  const itemsPerPage = 10;
+  const [page, setPage] = useState(1);
 
-function changePage(amt){
-  setPage(page+amt >= 1 && page+amt <= Math.ceil((totalItems)/itemsPerPage)? page+amt : page);
-}
+
+  function changePage(amt){
+    setPage(page+amt >= 1 && page+amt <= Math.ceil((totalItems)/itemsPerPage)? page+amt : page);
+  }
+
   return (
     <div className="Unter">
       <Header />
@@ -42,7 +43,7 @@ function changePage(amt){
         Drive - Select A Trip
       </h2>
 
-      <DriverTrips trips={trips} />
+      <DriverTrips trips={trips}/>
       Need to hook this up properly when we get API requests
       <p> 
         <button onClick={() => changePage(-1)}>{"<"}</button>

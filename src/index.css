@@ -64,10 +64,72 @@ table {
   border-radius: 10px;
 }
 
+label {
+  color: black;
+}
+
 thead th:nth-child(1) {
   width: 30%;
 }
 
 th, td {
   padding: 20px;
+}
+
+.divLoc{
+  display: inline-block;
+  background-color: #518065;
+}
+
+form {
+  background: white;
+  border: 1px solid #dedede;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin: 0 auto;
+  max-width: 500px;
+  padding: 30px 50px;
+}
+
+.textbox{
+  border: 1px solid #d9d9d9;
+  color: black;
+  background-color: lightgrey;
+  border-radius: 4px;
+  box-sizing: border-box;
+  padding: 10px;
+  width: 100%;
+}
+
+input {
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  box-sizing: border-box;
+  padding: 10px;
+  width: 100%;
+}
+
+label {
+  color: #3d3d3d;
+  display: block;
+  font-family: sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.error {
+  color: red;
+  font-family: sans-serif;
+  font-size: 12px;
+  height: 30px;
+}
+
+.submitButton {
+  background-color: #6976d9;
+  color: white;
+  font-family: sans-serif;
+  font-size: 14px;
+  margin: 20px 0px;
 }

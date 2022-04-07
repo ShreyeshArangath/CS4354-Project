@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import Drive from './pages/Drive';
 import Ride from './pages/Ride';
 import Admin from './pages/Admin';
+import Trip from './pages/Trip';
 import AdminCompleted from './pages/AdminCompleted';
 import reportWebVitals from './reportWebVitals';
 
@@ -19,6 +20,7 @@ ReactDOM.render(
       <Route path='/Drive' element={<Drive />} />
       <Route path='/Ride' element={<Ride />} />
       <Route path='/Admin' element={<Admin />} />
+      <Route path='/Trip' element={<Trip />} />
       <Route path='/Admin/Completed' element={<AdminCompleted />} />
       <Route path='/Admin/InProgress' element={<AdminCompleted />} />
       <Route path='/Admin/InQueue' element={<AdminCompleted />} />

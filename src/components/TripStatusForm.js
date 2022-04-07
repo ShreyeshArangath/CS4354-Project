@@ -17,7 +17,6 @@ class TripStatusForm extends React.Component {
     }
 
     handleSubmit(event) {
-        //alert('The page should change to show trips: ' + this.state.value); // change to certain page page
         event.preventDefault();
         this.redirectTo('Admin/'+this.state.value, {state: {tripState: this.state.value}})
     }
