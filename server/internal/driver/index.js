@@ -46,7 +46,7 @@ function getDriverRouter(driverController) {
     } )
 
     /**
-        * @api {get} api/driver/trips/accept/:tripID&:driverID      Accept a trip that is In-Queue  
+        * @api {post} api/driver/trips/accept/:tripID&:driverID      Accept a trip that is In-Queue  
         * @apiName AcceptTrip
         * @apiGroup Driver        
         * @apiParam tripID                          ID of the trip selected by the driver  
@@ -73,6 +73,35 @@ function getDriverRouter(driverController) {
             
         } catch(err) {
             const errMessage = "Error while accepting the ride" + err.message
+            res.status(404)
+            res.send(errMessage)
+            next(err);
+        }
+    })
+
+
+    /**
+        * @api {post} api/driver/trips/completed/:tripID     Complete a ride  
+        * @apiName AcceptTrip
+        * @apiGroup Driver        
+        * @apiParam tripID                          ID of the trip selected by the driver         
+        * @apiSuccess {update}                      Metadata pertaining to updating state of the trip
+        * @apiSuccess {insert}                      Metadata pertaining to inserting data into the DriverTrip table
+    */
+    router.post("/trips/completed/:tripID", async function(req, res, next) {
+        try {
+            const tripID = req.params.tripID
+            if (tripID) {
+                const metadata = await driverController.completeTrip(tripID)
+                res.json(metadata)
+            } 
+            else {
+                res.status(400); 
+                res.send("Check request body parameters")     
+            }       
+            
+        } catch(err) {
+            const errMessage = "Error while completing the ride: " + err.message
             res.status(404)
             res.send(errMessage)
             next(err);

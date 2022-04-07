@@ -26,6 +26,12 @@ class DriverController {
         const updateStateData = await this._tripRepo.updateTripState(tripID, state)
         return [insertData, updateStateData]
     }
+
+    async completeTrip(tripId) {
+        const state = "COMPLETED"
+        return this._tripRepo.updateTripState(tripId, state)
+        //TODO: Payment repo linkup 
+    }
 }
 
 module.exports = {DriverController}

@@ -50,6 +50,7 @@ function getPassengerRouter(passengerController) {
 
     /**
         * @api {get} api/passenger/trips/driver/:tripID       Get the driver details of a specific trip
+        * PRECONDITION: Trip must be In-Progress
         * @apiName GetDriverDetails
         * @apiGroup Passenger
         * @apiParam tripID                          ID of the trip selected by the passenger           
