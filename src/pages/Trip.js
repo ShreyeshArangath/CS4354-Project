@@ -44,7 +44,7 @@ function Trip() {
   function showButtons() {
     if (tripSent === 'Drive'){// If this page is generated for Passenger
       return(
-        <button onClick={()=>alert('Canceling Trip') }>CANCLE</button> //TODO: Add logic to do DELETE api call here
+        <button onClick={()=>alert('Canceling Trip') }>CANCEL</button> //TODO: Add logic to do DELETE api call here
       );
     } else if (tripSent === 'Ride'){// If this page is generated for a Driver
       return(
