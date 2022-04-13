@@ -1,13 +1,13 @@
-import './styles/App.css';
+
+// page not used
 
 function UnterApp() {
+
   return (
     <div className="Unter">
-      <header className="Unter-header">
-        <h1>
-         <code>Unter</code>
-        </h1>
-      </header>
+      <h2>
+        Hello
+      </h2>
     </div>
   );
 }
