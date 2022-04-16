@@ -1,0 +1,25 @@
+USE unter;
+
+SHOW TABLES;
+
+INSERT INTO DRIVER VALUES ("Elon", "Musk", '2000-01-01', "elon.musk@twitter.com", 20, 5);
+
+SELECT * FROM DRIVER;
+
+ALTER TABLE TRIP AUTO_INCREMENT=1;
+ALTER TABLE PAYMENT AUTO_INCREMENT=1;
+
+INSERT INTO TRIP(PRICE, STATE, toAddress, fromAddress, tripRequestedTime) 
+VALUES(50, "IN_QUEUE", "2210 Main St, Lubbock TX", "2212 Main St, Lubbock TX", CURTIME());
+
+SELECT * FROM TRIP;
+
+INSERT INTO PASSENGER VALUES ("Jack", "Dorsey", '2000-01-21', "jack.dorsey@tesla.com", 15, 3.95);
+INSERT INTO PASSENGER_TRIPS VALUES (1, "jack.dorsey@tesla.com");
+INSERT INTO PAYMENT (tripID, paymentMethod) VALUES (1, "CASH");
+SELECT * FROM DRIVER_TRIPS;
+
+SELECT * FROM TRIP; 
+
+SELECT PRICE FROM TRIP t, PAYMENT p WHERE t.tripID = p.tripID AND p.tripID=1;
+

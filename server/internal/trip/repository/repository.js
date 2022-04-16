@@ -3,39 +3,63 @@ class TripRepository {
         this._database = database
     }
 
-    requestTrip(passengerId, startingLocation, destination, numPassenger) {
-        // Insert into Trip Table 
-        // Insert into PassengerTrips Table  
+    async insertIntoPassengerTrips(passengerId, tripId) {
+        const sql = "INSERT INTO `PASSENGER_TRIPS` VALUES (?, ?)"
+        const params = [tripId, passengerId]
+        return await this._database.query(sql, params)
     }
 
-    acceptTrip(driverId, tripId) {
-        // Insert into DriverTrip table 
-        // Update Trip table state to In Progress 
+    async insertIntoDriverTrips(driverId, tripId) {
+        const sql = "INSERT INTO `DRIVER_TRIPS` VALUES (?, ?)"
+        const params = [tripId, driverId]
+        return await this._database.query(sql, params)
     }
 
-    updateTripState(tripId, state) {
-        // Update Trip table state to the given state 
+    async getDriverIDFromTrip(tripId) {
+        const sql = "SELECT `driverID` from `DRIVER_TRIPS` WHERE `tripID`=?"
+        const params = [tripId]
+        const metadata = await this._database.query(sql, params)
+        const data = this._database.pagination.emptyOrRows(metadata)
+        return [data, metadata]
     }
 
-    cancelTrip(tripId) {
-        // Delete from Trip table 
+    async updateTripState(tripId, state) {
+        const sql = "UPDATE `TRIP` SET `state`=? WHERE `tripID`=?"
+        const params = [state, tripId]
+        return await this._database.query(sql, params)
+
     }
 
-    insertTrip(tripId, price, state, to, from, time) {
-        // Insert into the Trip table 
+    async cancelTrip(tripId) {
+        const sql = "DELETE FROM `TRIP` WHERE `tripID`=?"
+        const params = [tripId]
+        return await this._database.query(sql, params)
+        
     }
 
-    retrieveTripByUserID(passengerId, tripId) {
-          // GET row from the trip table
+    async insertTrip(trip) {
+        const sql = "INSERT INTO `TRIP` (PRICE, STATE, toAddress, fromAddress, tripRequestedTime) VALUES(?, ?, ?, ?, CURTIME());"
+        const params = [trip.price, trip.state, trip.from, trip.to]
+        const rows = await this._database.query(sql, params)
+        const lastInsertID  = rows.insertId
+        return lastInsertID
     }
 
-    retrieveTripsByState(state){
-        // Get all trips that conform to the given state
-        // Look into pagination  
+    async getTripByID(tripId) { 
+        const sql = "SELECT * FROM `TRIP` WHERE `tripID`=?"
+        const params = [tripId]
+        const rows = await this._database.query(sql, params)
+        const data = this._database.pagination.emptyOrRows(rows)
+        return data 
     }
 
-    cancelTrip(tripId) {
-        // Delete from trip table 
+    async retrieveTripsByState(state, page, listPerPage){
+        const offset = this._database.pagination.getOffset(page, listPerPage)
+        const sql = "SELECT * FROM `TRIP` WHERE `state`=?"
+        const params = [state]
+        const rows = await this._database.query(sql, params)
+        const data = this._database.pagination.emptyOrRows(rows)
+        return data 
     }
 }
 
