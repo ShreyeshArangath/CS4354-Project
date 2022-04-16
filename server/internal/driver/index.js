@@ -45,6 +45,28 @@ function getDriverRouter(driverController) {
         } 
     } )
 
+
+    /**
+        * @api {get} api/driver/trips/:tripID       Get a list of the trips that are In-Queue  
+        * @apiName GetTripsInQueue
+        * @apiGroup Driver        
+        * @apiParam tripID                          ID of the trip selected by the driver           
+        * @apiSuccess {driverPaymentAmount: int}    Driver Pay Cut from the trip  
+    */
+    router.get("/trips/payment/:tripID", async function (req, res, next) {
+        try {
+            const tripID = req.params.tripID
+            if(tripID) {
+                const data = await driverController.getDriverPaymentAmount(tripID)
+                res.json({"driverPaymentAmount": data})
+            }
+        } catch(err) {
+            const errMessage = "Error while retrieving trip payment info: " + err.message
+            res.status(404)
+            res.send(errMessage)
+        } 
+    })
+
     /**
         * @api {post} api/driver/trips/accept/:tripID&:driverID      Accept a trip that is In-Queue  
         * @apiName AcceptTrip

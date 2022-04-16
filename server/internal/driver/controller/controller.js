@@ -12,6 +12,10 @@ class DriverController {
         return await this._driverRepo.getDriver(userID)
     }
 
+    async getDrivers() {
+        return await this._driverRepo.getDrivers()
+    }
+
     async getTrips(state = "IN_QUEUE", page = 1, listPerPage = 10) {
         return await this._tripRepo.retrieveTripsByState(state, page, listPerPage)
     }
@@ -30,7 +34,12 @@ class DriverController {
     async completeTrip(tripId) {
         const state = "COMPLETED"
         return this._tripRepo.updateTripState(tripId, state)
-        //TODO: Payment repo linkup 
+    }
+
+    async getDriverPaymentAmount(tripID) { 
+        const data = await this._paymentRepo.retrieveTripPrice(tripID)
+        const driverPaymentAmount = data[0]["PRICE"]
+        return driverPaymentAmount 
     }
 }
 
