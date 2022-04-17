@@ -55,7 +55,8 @@ class TripRepository {
 
     async retrieveTripsByState(state, page, listPerPage){
         const offset = this._database.pagination.getOffset(page, listPerPage)
-        const sql = "SELECT * FROM `TRIP` WHERE `state`=?"
+        const sql = "SELECT * FROM PASSENGER p, TRIP t WHERE p.userID IN \
+        (SELECT passengerID FROM PASSENGER_TRIPS WHERE tripID = t.tripID) AND t.state=?;" 
         const params = [state]
         const rows = await this._database.query(sql, params)
         const data = this._database.pagination.emptyOrRows(rows)
