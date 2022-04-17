@@ -37,9 +37,10 @@ class DriverController {
     }
 
     async getDriverPaymentAmount(tripID) { 
+        const DRIVER_CUT_PERCENTAGE = 80;
         const data = await this._paymentRepo.retrieveTripPrice(tripID)
         const driverPaymentAmount = data[0]["PRICE"]
-        return driverPaymentAmount 
+        return driverPaymentAmount*DRIVER_CUT_PERCENTAGE/100
     }
 }
 

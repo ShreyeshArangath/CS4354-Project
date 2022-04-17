@@ -16,7 +16,7 @@ CREATE TABLE DRIVER(
 DROP TABLE IF EXISTS PASSENGER; 
 CREATE TABLE PASSENGER(
 	fname varchar(25) NOT NULL, 
-	lame varchar(25) NOT NULL, 
+	lname varchar(25) NOT NULL, 
 	dob date NOT NULL, 
 	userID varchar(50) NOT NULL, 
 	totalTrips int NOT NULL DEFAULT 0,

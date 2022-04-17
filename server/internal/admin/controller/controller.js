@@ -8,6 +8,11 @@ class AdminController {
     async cancelTrip(tripID) {
         return await this._tripRepo.cancelTrip(tripID)
     }
+
+    async getTripInfoByState(state){
+        state = state.toUpperCase()
+        return await this._tripRepo.retrieveTripsByState(state)
+    }
 }
 
 module.exports = {AdminController}
