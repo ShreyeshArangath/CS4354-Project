@@ -21,11 +21,11 @@ function getDriverRouter(driverController) {
     })
 
     /**
-        * @api {get} api/driver/trips/:tripID       Get a list of the trips that are In-Queue  
-        * @apiName GetTripsInQueue
+        * @api {get} api/driver/trips/:tripID       Get the ifnormation about a particular trip  
+        * @apiName GetTripInfoById
         * @apiGroup Driver        
         * @apiParam tripID                          ID of the trip selected by the driver           
-        * @apiSuccess {data}                        Details of the as defined in the entities  
+        * @apiSuccess {data}                        Trip Details   
     */
     router.get("/trips/:tripID", async function(req, res, next) {
         try {
@@ -75,7 +75,7 @@ function getDriverRouter(driverController) {
 
     /**
         * @api {get} api/driver/trips/:tripID       Get a list of the trips that are In-Queue  
-        * @apiName GetTripsInQueue
+        * @apiName GetDriverPaymentAmount
         * @apiGroup Driver        
         * @apiParam tripID                          ID of the trip selected by the driver           
         * @apiSuccess {driverPaymentAmount: int}    Driver Pay Cut from the trip  
@@ -131,7 +131,7 @@ function getDriverRouter(driverController) {
 
     /**
         * @api {post} api/driver/trips/completed/:tripID     Complete a ride  
-        * @apiName AcceptTrip
+        * @apiName CompleteTrip
         * @apiGroup Driver        
         * @apiParam tripID                          ID of the trip selected by the driver         
         * @apiSuccess {update}                      Metadata pertaining to updating state of the trip
