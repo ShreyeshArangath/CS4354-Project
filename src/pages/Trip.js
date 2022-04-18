@@ -1,5 +1,5 @@
 import Header from '../components/Header'
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 
 import React from 'react';
 import { useLocation } from 'react-router-dom';
@@ -8,61 +8,80 @@ import { useLocation } from 'react-router-dom';
 
 function Trip() {
 
+  
+
   const location = useLocation();
   const tripID = location.state?.tripID;
   const tripSent = location.state?.status; //the page this state came from
 
   //Get this from API request
-  const [trip, setTrip] = useState(
-    {
-        id: 23023,
-        tag: "In Queue",
-        distance: 21.2,
-        pass_fname: "John",
-        pass_lname: "Smith",
-        pass_raiting: 4.2,
-        cost: 49.20,
-        payout: 10.02,
-        fromAddr: '42 Wallaby Lane',
-        fromCity: 'Sydney',
-        fromState: '',
-        fromCountry: 'Australia',
-        fromZip: '74229',
-        toAddr: '221B Baker St',
-        toCity: 'London NW1 6XE',
-        toState: '',
-        toCountry: 'United Kingdom',
-        toZip: '88302',
-        numPassenger: 4,
-        estWait: 3,
-        driver_fname: 'Woski',
-        driver_lname: "McKane",
-        driver_raiting: 2.0
+  const [trip, setTrip] = useState(0)
+  const [driverPay, setDriverPay] = useState(0)
+  const [passenger, setPassenger] = useState(0)
+
+    //TODO: TestDelete Trip for Admin / Cancel trip
+    //      Add Take Trip Functionality
+    //      Add functonality to take you here from make a Trip
+  const makeAPICall = async () => {
+    try {
+      const responseTrip = await fetch('http://localhost:9000/api/driver/trips/'+tripID, {mode:'cors'});
+      const dataTrip = await responseTrip.json();
+      console.log("We got trip");
+      console.log({ dataTrip })
+      setTrip(dataTrip[0]);
+
+      const responseDP = await fetch('http://localhost:9000/api/driver/trips/payment/'+tripID, {mode:'cors'});
+      const dataDP = await responseDP.json();
+      console.log("We got driver Payment");
+      console.log({ dataDP })
+      setDriverPay(dataDP);
     }
-  )
+    catch (e) {
+      console.log(e)
+    }
+  }
+  useEffect(() => {
+    makeAPICall();
+  }, [])
+
+  const deleteTrip = async () => {
+    alert('Deleting Trip')
+    try {
+      const response = await fetch('http://localhost:9000/api/admin/trips/'+tripID, {mode:'cors'});
+      const data = await response.json();
+      console.log("Deleting Trip");
+      console.log({ data })
+    }
+    catch (e) {
+      console.log(e)
+    }
+  }
+
 
   function showButtons() {
-    if (tripSent === 'Drive'){// If this page is generated for Passenger
+    if (tripSent === 'Drive' && trip.state == 'IN_QUEUE'){// If this page is generated for Passenger
       return(
-        <button onClick={()=>alert('Canceling Trip') }>CANCEL</button> //TODO: Add logic to do DELETE api call here
+        <button onClick={deleteTrip}>CANCEL</button> //TODO: Add logic to do DELETE api call here
       );
-    } else if (tripSent === 'Ride'){// If this page is generated for a Driver
+    } else if (tripSent === 'Ride' && trip.state == 'IN_QUEUE' ){// If this page is generated for a Driver
       return(
         <button onClick={()=>alert('Taking Trip') }>TAKE TRIP</button> //TODO: Add logic to do trip update out of queue
       );
     } else if (tripSent === 'Admin'){// If this page is generated for a Driver
-      return(//TODO: somehow edit trip and DELETE
+      return(
         <>
-        <button onClick={()=>alert('Edit Trip Functionality') }>EDIT</button> 
-        <button onClick={()=>alert('DELETE TRIP') }>DELETE</button>
+        <button onClick={deleteTrip}>DELETE</button> 
         </>
       );
     }
   }
 
+//
 
+//Est. Wait: {trip.estWait} min <br></br>
+//Trip Distance: {trip.distance} mi <br></br>
   function driver() {
-    return (trip.tag !== 'In Queue' ? <p>{trip.driver_fname} {trip.driver_lname} - {trip.driver_raiting}*</p>: <p>Searching...</p>)
+    return (trip.state !== 'IN_QUEUE' ? <p>{trip.driver_fname} {trip.driver_lname} - {trip.driver_raiting}*</p>: <p>Searching...</p>)
   }
 
   return (
@@ -73,34 +92,26 @@ function Trip() {
         {trip.tag}
       </h2>
       <h3>Starting Location</h3>
-      <p>{trip.fromAddr}<br></br>
-      {trip.fromCity}, {trip.fromState} {trip.fromZip}<br></br>
-      {trip.fromCountry}
-      </p>
+      <p>{trip.fromAddress}</p>
 
       <h3>Destination Location</h3>
-      <p>{trip.toAddr}<br></br>
-      {trip.toCity}, {trip.toState} {trip.toZip}<br></br>
-      {trip.toCountry}
-      </p>
+      <p>{trip.toAddress}</p>
 
       <h3>Passenger</h3> 
       <p>{trip.pass_fname} {trip.pass_lname} - {trip.pass_raiting}*<br></br>
-      Number of Passengers: {trip.numPassenger}
+      Number of Passengers: {trip.numPassengers}
       </p>
       
       <h3>Driver</h3> 
       {driver()}
 
       <h3>Info</h3> 
-      <p>Est. Wait: {trip.estWait} min <br></br>
-      Trip Distance: {trip.distance} mi <br></br>
-      Cost: ${trip.cost.toFixed(2)}<br></br>
-      Driver Payout:  ${trip.payout.toFixed(2)}
+      <p>
+      Price: ${(trip.price+0.0).toFixed(2)}<br></br>
+      Driver Payout:  ${(driverPay.driverPaymentAmount+0.0).toFixed(2)} 
       </p>
 
       {showButtons()}<br></br>
-      <button onClick={()=>alert("Trip ID of trip taken from last page: " +tripID) }>dumb</button>
     </div>
   );
 }

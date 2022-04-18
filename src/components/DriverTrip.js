@@ -8,13 +8,13 @@ const DriverTrip = ({ trip, onTripSelect }) => {
     const navigate = useNavigate();
 
     return (
-        <tr key={trip.id}> 
-            <td>{trip.id}</td>
-            <td>{trip.distance}</td>
+        <tr key={trip.tripID}> 
+            <td>{trip.tripID}</td>
+            <td>{trip.price/20}</td>
             <td>{trip.user_fname} {trip.user_lname} - {trip.user_rating}*</td>
-            <td>${trip.payout}</td>
+            <td>${trip.price}</td>
             <td>
-                <Button text="GO"  onClick={() => navigate('/Trip', {state: {tripID: trip.id, status: 'Drive'}} )}/>
+                <Button text="GO"  onClick={() => navigate('/Trip', {state: {tripID: trip.tripID, status: 'Drive'}} )}/>
             </td>
         </tr>
 

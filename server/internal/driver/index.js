@@ -21,7 +21,8 @@ function getDriverRouter(driverController) {
     })
 
     /**
-        * @api {get} api/driver/trips/:tripID       Get the ifnormation about a particular trip  
+        main
+        * @api {get} api/driver/trips/:tripID       Get the information about a particular trip  
         * @apiName GetTripInfoById
         * @apiGroup Driver        
         * @apiParam tripID                          ID of the trip selected by the driver           
@@ -31,7 +32,7 @@ function getDriverRouter(driverController) {
         try {
             const tripID = req.params.tripID 
             if (tripID){
-                const data = await driverController.getTripById(req.params.id)
+                const data = await driverController.getTripById(tripID)
                 res.json(data)
             }
             else {
@@ -74,8 +75,9 @@ function getDriverRouter(driverController) {
     })
 
     /**
-        * @api {get} api/driver/trips/:tripID       Get a list of the trips that are In-Queue  
-        * @apiName GetDriverPaymentAmount
+        main
+        * @api {get} api/driver/trips/payment/:tripID       Get the driver payment amount
+        * @apiName GetTripsInQueue
         * @apiGroup Driver        
         * @apiParam tripID                          ID of the trip selected by the driver           
         * @apiSuccess {driverPaymentAmount: int}    Driver Pay Cut from the trip  
