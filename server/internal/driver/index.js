@@ -21,11 +21,12 @@ function getDriverRouter(driverController) {
     })
 
     /**
-        * @api {get} api/driver/trips/:tripID       Get a trip by its ID
-        * @apiName GetTripsInQueue
+        main
+        * @api {get} api/driver/trips/:tripID       Get the information about a particular trip  
+        * @apiName GetTripInfoById
         * @apiGroup Driver        
         * @apiParam tripID                          ID of the trip selected by the driver           
-        * @apiSuccess {data}                        Details of the as defined in the entities  
+        * @apiSuccess {data}                        Trip Details   
     */
     router.get("/trips/:tripID", async function(req, res, next) {
         try {
@@ -45,8 +46,36 @@ function getDriverRouter(driverController) {
         } 
     } )
 
+    
+    /**
+        * @api {get} api/driver/rating/:userID       Get the rating info for a driver 
+        * @apiName GetDriverRating
+        * @apiGroup Driver
+        * @apiParam userId                          ID of the driver           
+        * @apiSuccess {data}                  Rating data    
+    */
+     router.get("/rating/:userID", async function (req, res, next) {
+        try {
+            const userID = req.params.userID
+            if (userID) {
+                const metadata = await driverController.getRating(userID)
+                res.json(metadata)
+            } 
+            else {
+                res.status(400); 
+                res.send("Check userID")     
+            }       
+            
+        } catch(err) {
+            const errMessage = "Error while retrieving passenger rating: " + err.message
+            res.status(404)
+            res.send(errMessage)
+            next(err);
+        }
+    })
 
     /**
+        main
         * @api {get} api/driver/trips/payment/:tripID       Get the driver payment amount
         * @apiName GetTripsInQueue
         * @apiGroup Driver        
@@ -104,7 +133,7 @@ function getDriverRouter(driverController) {
 
     /**
         * @api {post} api/driver/trips/completed/:tripID     Complete a ride  
-        * @apiName AcceptTrip
+        * @apiName CompleteTrip
         * @apiGroup Driver        
         * @apiParam tripID                          ID of the trip selected by the driver         
         * @apiSuccess {update}                      Metadata pertaining to updating state of the trip
@@ -130,6 +159,36 @@ function getDriverRouter(driverController) {
         }
     })
 
+     /**
+        * @api {post} api/driver/trips/rating/:tripID     Rate a ride  
+        * @apiName RateTrip
+        * @apiGroup Driver        
+        * @apiBody {Number} rating                  Rating given by the driver for a trip
+        * @apiParam tripID                          ID of the trip selected by the driver         
+    */
+      router.post("/trips/rating/:tripID", async function(req, res, next) {
+        try {
+            const tripID = req.params.tripID
+            const rating = req.body.rating 
+            if (tripID && rating) {
+                const metadata = await driverController.rateTrip(tripID, rateTrip)
+                res.json(metadata)
+            } 
+            else {
+                res.status(400); 
+                res.send("Check request body parameters")     
+            }       
+            
+        } catch(err) {
+            const errMessage = "Error while rating the ride: " + err.message
+            res.status(404)
+            res.send(errMessage)
+            next(err);
+        }
+    })
+
+
+    /* */
     return router; 
 }
 

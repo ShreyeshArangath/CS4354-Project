@@ -49,6 +49,61 @@ function getPassengerRouter(passengerController) {
 
 
     /**
+        * @api {get} api/passenger/rating/:userID       Get the rating info for a passenger 
+        * @apiName GetPassengerRating
+        * @apiGroup Passenger
+        * @apiParam userId                          ID of the passenger           
+        * @apiSuccess {data}                  Rating data    
+    */
+    router.get("/rating/:userID", async function (req, res, next) {
+        try {
+            const userID = req.params.userID
+            if (userID) {
+                const metadata = await passengerController.getRating(userID)
+                res.json(metadata)
+            } 
+            else {
+                res.status(400); 
+                res.send("Check userID")     
+            }       
+            
+        } catch(err) {
+            const errMessage = "Error while retrieving passenger rating: " + err.message
+            res.status(404)
+            res.send(errMessage)
+            next(err);
+        }
+    })
+
+     /**
+        * @api {post} api/passenger/trips/rating/:tripID     Rate a ride  
+        * @apiName RateTrip
+        * @apiGroup Driver        
+        * @apiBody {Number} rating                  Rating given by the passenger for a trip
+        * @apiParam tripID                          ID of the trip selected by the driver         
+    */
+      router.post("/trips/rating/:tripID", async function(req, res, next) {
+        try {
+            const tripID = req.params.tripID
+            const rating = req.body.rating 
+            if (tripID && rating) {
+                const metadata = await passengerController.rateTrip(tripID, rating)
+                res.json(metadata)
+            } 
+            else {
+                res.status(400); 
+                res.send("Check request body parameters")     
+            }       
+            
+        } catch(err) {
+            const errMessage = "Error while rating the ride: " + err.message
+            res.status(404)
+            res.send(errMessage)
+            next(err);
+        }
+    })
+
+    /**
         * @api {get} api/passenger/trips/driver/:tripID       Get the driver details of a specific trip
         * PRECONDITION: Trip must be In-Progress
         * @apiName GetDriverDetails
