@@ -72,9 +72,9 @@ class TripRepository {
         return lastInsertID
     }
 
-    async getTripByID(tripId) { 
-        const sql = "SELECT * FROM `TRIP` WHERE `tripID`=?"
-        const params = [tripId]
+    async getTripStateFromID(tripID) {
+        const sql = "SELECT state FROM `TRIP` WHERE `tripID`=?"
+        const params = [tripID]
         const rows = await this._database.query(sql, params)
         const data = this._database.pagination.emptyOrRows(rows)
         return data 

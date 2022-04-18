@@ -31,7 +31,7 @@ function getDriverRouter(driverController) {
         try {
             const tripID = req.params.tripID 
             if (tripID){
-                const data = await driverController.getTripById(req.params.id)
+                const data = await driverController.getTripById(tripID)
                 res.json(data)
             }
             else {

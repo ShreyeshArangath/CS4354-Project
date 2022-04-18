@@ -21,7 +21,10 @@ class DriverController {
     }
 
     async getTripById(tripId) { 
-        return await this._tripRepo.getTripByID(tripId)
+        const res = await this._tripRepo.getTripStateFromID(tripId)
+        const state = res[0].state
+
+        return await this._tripRepo.retrieveTripsByState(state)
     }
 
     async acceptTrip(tripID, driverID) {
