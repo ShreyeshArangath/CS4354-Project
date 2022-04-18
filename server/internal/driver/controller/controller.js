@@ -42,6 +42,14 @@ class DriverController {
         const driverPaymentAmount = data[0]["PRICE"]
         return driverPaymentAmount*DRIVER_CUT_PERCENTAGE/100
     }
+
+    async rateTrip(tripID, rating) {
+        return await this._tripRepo.updateDriverRatingForTripID(tripID, rating)
+    }
+
+    async getRating(userID) {
+        return await this._tripRepo.getDriverRating(userID)
+    }
 }
 
 module.exports = {DriverController}

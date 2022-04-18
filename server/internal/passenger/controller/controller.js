@@ -19,6 +19,14 @@ class PassengerController {
         
         return driverData
     }
+
+    async rateTrip(tripID, rating) {
+        return await this._tripRepo.updatePassengerRatingForTripID(tripID, rating)
+    }
+
+    async getRating(userID) {
+        return await this._tripRepo.getPassengerRating(userID)
+    }
 }
 
 module.exports = {PassengerController}

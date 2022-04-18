@@ -27,7 +27,34 @@ class TripRepository {
         const sql = "UPDATE `TRIP` SET `state`=? WHERE `tripID`=?"
         const params = [state, tripId]
         return await this._database.query(sql, params)
+    }
 
+    async updatePassengerRatingForTripID(tripId, passengerRating) {
+        const sql = "UPDATE TRIP set passengerRating = ? WHERE tripID = ?;"
+        const params = [passengerRating, tripId]
+        return await this._database.query(sql, params)
+    }
+
+    async updateDriverRatingForTripID(tripID, driverRating) {
+        const sql = "UPDATE TRIP set driverRating = ? WHERE tripID = ?;"
+        const params = [driverRating, tripID]
+        return await this._database.query(sql, params)
+    }
+
+    async getDriverRating(userID) {
+        const sql = "SELECT * FROM driverRating WHERE userID=?;"
+        const params = [userID]
+        const rows = await this._database.query(sql, params)
+        const data = this._database.pagination.emptyOrRows(rows)
+        return data 
+    }
+
+    async getPassengerRating(userID) {
+        const sql = "SELECT * FROM passengerRating WHERE userID=?;"
+        const params = [userID]
+        const rows = await this._database.query(sql, params)
+        const data = this._database.pagination.emptyOrRows(rows)
+        return data 
     }
 
     async cancelTrip(tripId) {
@@ -65,14 +92,10 @@ class TripRepository {
             p.fname      AS passenger_fname,
             p.lname      AS passenger_lname,
             p.userid     AS passenger_userID,
-            p.totaltrips AS passenger_totalTrips,
-            p.rating     AS passenger_ratings,
             p.dob        AS passenger_dob,
             d.fname      AS driver_fname,
             d.lname      AS driver_lname,
             d.userid     AS driver_userID,
-            d.totaltrips AS driver_totalTrips,
-            d.rating     AS driver_ratings,
             d.dob        AS driver_dob
      FROM   passenger p,
             driver d,
