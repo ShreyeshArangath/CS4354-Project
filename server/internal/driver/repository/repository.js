@@ -13,23 +13,35 @@ class DriverRepository {
 
     async getDriver(userID) {
         // GET driver details
-        const sql = 'SELECT * FROM `driver` WHERE `userID` = ?;'
+        const sql = 'SELECT * FROM `driver` WHERE `userID`=?;'
         const params = [userID]
         const metadata = await this._database.query(sql, params)
         const data = this._database.pagination.emptyOrRows(metadata)
-        return [data, metadata] 
+        return data 
     }
 
-    createDriver(userID, firstName, lastName, DOB, totalTrips, ratings) {
+    async createDriver(userID, firstName, lastName, DOB) {
         // INSERT into the driver table  
+        const sql = `INSERT INTO DRIVER VALUES (?,?,?,?);`
+        const params = [firstName, lastName, DOB, userID]
+        const rows = await this._database.query(sql, params)
+        const lastInsertID  = rows.insertId
+        return lastInsertID
     }
 
-    updateDriver(userID, totalTrips, ratings) {
-        // UPDATE Driver trip total and ratings 
+    async getDriverRating(userID){
+        const sql = "SELECT * FROM driverRating WHERE userID=?"
+        const params = [userID]
+        const metadata = await this._database.query(sql, params)
+        const data = this._database.pagination.emptyOrRows(metadata)
+        return [data, metadata]
     }
 
-    deleteDriver(userID){
+    async deleteDriver(userID){
         // Delete from Driver
+        const sql = "DELETE FROM DRIVER WHERE userID=?"
+        const params = [userID]
+        return await this._database.query(sql, params) 
     }
 }
 

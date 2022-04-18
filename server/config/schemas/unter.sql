@@ -5,22 +5,18 @@ USE Unter;
 DROP TABLE IF EXISTS DRIVER; 
 CREATE TABLE DRIVER(
 	fname varchar(25) NOT NULL, 
-	lame varchar(25) NOT NULL, 
+	lname varchar(25) NOT NULL, 
 	dob date NOT NULL, 
 	userID varchar(50) NOT NULL, 
-	totalTrips int NOT NULL DEFAULT 0,
-	rating decimal(3, 2) NOT NULL DEFAULT 0.00,
 	CONSTRAINT pk_driver primary key(userID) 
 );
 
 DROP TABLE IF EXISTS PASSENGER; 
 CREATE TABLE PASSENGER(
 	fname varchar(25) NOT NULL, 
-	lame varchar(25) NOT NULL, 
+	lname varchar(25) NOT NULL, 
 	dob date NOT NULL, 
 	userID varchar(50) NOT NULL, 
-	totalTrips int NOT NULL DEFAULT 0,
-	rating decimal(3, 2) NOT NULL DEFAULT 0.00,
 	CONSTRAINT pk_passenger primary key(userID)
 );
 
@@ -33,6 +29,8 @@ CREATE TABLE TRIP(
 	fromAddress varchar(50) NOT NULL, 
 	tripRequestedTime datetime NOT NULL, 
     numPassengers int NOT NULL DEFAULT 1, 
+    driverRating decimal(3, 2) DEFAULT 5.00,
+    passengerRating decimal(3, 2) DEFAULT 5.00,
 	CONSTRAINT pk_trip PRIMARY KEY(tripID)
 );
 
@@ -70,3 +68,16 @@ CREATE TABLE Payment(
 	CONSTRAINT pk_payment PRIMARY KEY(transactionID, tripID), 
 	CONSTRAINT fk_payment_tripID FOREIGN KEY(tripID) references TRIP(tripID) ON DELETE CASCADE ON UPDATE CASCADE 
 );
+
+CREATE VIEW passengerRating 
+AS 
+SELECT p.userID, COUNT(*) as totalTrips, AVG(t.driverRating) as rating FROM PASSENGER p, TRIP t 
+	WHERE p.userID IN (SELECT passengerID FROM PASSENGER_TRIPS WHERE tripID = t.tripID) 
+    GROUP BY p.userID; 
+
+CREATE VIEW driverRating 
+AS 
+SELECT d.userID, COUNT(*) AS totalTrips, AVG(t.passengerRating) as rating FROM DRIVER d, TRIP t 
+	WHERE d.userID IN (SELECT driverID FROM DRIVER_TRIPS WHERE tripID = t.tripID) 
+    GROUP BY d.userID; 
+    
