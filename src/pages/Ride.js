@@ -22,9 +22,31 @@ function Ride() {
 
   const navigate = useNavigate();
 
+  //Get this from API request
+  const RequestTrip = async () => {
+    try {
+      const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ "from": tripInfo.from,
+                              "to": tripInfo.to,
+                              "numPassengers": tripInfo.numPassengers, 
+                              "passengerID": tripInfo.passengerID }) };
+      const response = await fetch('http://localhost:9000/api/passenger/trips/request', requestOptions);
+      const data = await response.json();
+      console.log("Requested the trip")
+      console.log({ data })
+      alert("Requested A Trip")
+      navigate('/Trip', {state: {tripI: data, status: 'Ride'}} )
+    }
+    catch (e) {
+      console.log(e)
+    }
+  }
+
   function onUpdate(dat){
     setTripInfo(dat);
-    alert(dat.fromCountry);
+    RequestTrip()
   }
 
   function confirmTrip(dat){

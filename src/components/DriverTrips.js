@@ -16,7 +16,7 @@ const DriverTrips = ({ trips, onDelete }) => {
             </thead>
             <tbody>
                 {trips.map((trip)=>(
-                    <DriverTrip key={trip.id} trip={trip}/>
+                    <DriverTrip key={trip.tripID} trip={trip}/>
                 ))}
             </tbody>
         </table>

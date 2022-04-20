@@ -11,10 +11,10 @@ const DriverTrip = ({ trip, onTripSelect }) => {
         <tr key={trip.tripID}> 
             <td>{trip.tripID}</td>
             <td>{trip.price/20}</td>
-            <td>{trip.user_fname} {trip.user_lname} - {trip.user_rating}*</td>
+            <td>{trip.fname} {trip.lname} - {trip.passengerRating}* - {trip.numPassengers} Person</td>
             <td>${trip.price}</td>
             <td>
-                <Button text="GO"  onClick={() => navigate('/Trip', {state: {tripID: trip.tripID, status: 'Drive'}} )}/>
+                <Button text="GO"  onClick={() => navigate('/Trip', {state: {tripI: trip, status: 'Drive'}} )}/>
             </td>
         </tr>
 

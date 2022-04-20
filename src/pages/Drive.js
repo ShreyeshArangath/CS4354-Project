@@ -43,7 +43,6 @@ function Drive() {
       </h2>
 
       <DriverTrips trips={trips}/>
-      Need to hook this up properly when we get API requests
       <p> 
         <button onClick={() => changePage(-1)}>{"<"}</button>
         {page}

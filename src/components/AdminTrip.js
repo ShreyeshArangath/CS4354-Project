@@ -3,19 +3,20 @@ import { useNavigate } from 'react-router-dom';
 
 //TODO: Link GO button to a new page
 
-const AdminTrip = ({ trip, isQueue=false }) => {
+const AdminTrip = ({ trip }) => {
 
     const navigate = useNavigate();
 
+
     return (
-        <tr key={trip.id}> 
-            <td>{trip.id}</td>
-            <td>{trip.distance}</td>
-            <td>{trip.pass_id}</td>
-            <td>{!isQueue ? trip.driver_id : 'Finding Driver'}</td>
+        <tr key={trip.tripID}> 
+            <td>{trip.tripID}</td>
+            <td>{trip.tripRequestedTime}</td>
+            <td>{trip.state !== "IN_QUEUE" ? trip.passenger_userID : trip.userID}</td>
+            <td>{trip.state !== "IN_QUEUE" ? trip.driver_userID : 'Finding Driver'}</td>
             <td>${trip.price.toFixed(2)}</td>
             <td>
-                <Button text="View" onClick={() => navigate('/Trip', {state: {tripID: trip.id, status: 'Admin'}} )}/>
+                <Button text="View" onClick={() => navigate('/Trip', {state: {tripI: trip, status: 'Admin'}} )}/>
             </td>
         </tr>
 
