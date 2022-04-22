@@ -14,7 +14,8 @@ function Trip() {
   const tripSent = location.state?.status; //the page this state came from
 
   //Get this from API request
-  const [trip, setTrip] = useState(location.state?.tripI)
+  const initTripID = location.state?.tripID
+  const [trip, setTrip] = useState("")
   const [driverPay, setDriverPay] = useState(0)
   const [driverEmail, setDriverEmail] = useState("")
   //const [passenger, setPassenger] = useState(0)
@@ -24,21 +25,25 @@ function Trip() {
     //      Add functonality to take you here from make a Trip
     //      New API call for the trip on refresh 
   const makeAPICall = async () => {
+    const tripCallStr = 'http://localhost:9000/api/driver/trip/'+initTripID
+    console.log(tripCallStr)
     try{
-      const responseTR= await fetch('http://localhost:9000/api/driver/trips/'+trip.tripID, {mode:'cors'});
+      
+      const responseTR= await fetch(tripCallStr, {method: 'GET'});
       const dataTR = await responseTR.json();
-      console.log("We got trip with ID "+ trip.tripID);
+      console.log("We got trip with ID "+ initTripID);
       console.log({ dataTR })
-      setTrip(dataTR[0]);
+      setTrip(dataTR[0]); // dataTR should return only one object, the trip, not all the trips
     }
     catch (e) {
       console.log(e)
     }
 
     try {
-      const responseDP = await fetch('http://localhost:9000/api/driver/trips/payment/'+trip.tripID, {mode:'cors'});
+      const paymentCallStr = 'http://localhost:9000/api/driver/trips/payment/'+initTripID
+      const responseDP = await fetch(paymentCallStr, {mode:'cors'});
       const dataDP = await responseDP.json();
-      console.log("We got driver Payment");
+      console.log("We got driver Payment"); // Payment info does not generate for new trips
       console.log({ dataDP })
       setDriverPay(dataDP);
     }
@@ -98,15 +103,15 @@ function Trip() {
   function showButtons() {
     if (tripSent === 'Ride' && trip.state === 'IN_QUEUE'){// If this page is generated for Passenger
       return(
-        <button onClick={deleteTrip}>CANCEL</button> //TODO: Add logic to do DELETE api call here
+        <button onClick={deleteTrip}>CANCEL</button> 
       );
     } else if (tripSent === 'Drive' && trip.state === 'IN_QUEUE' ){// If this page is generated for a Driver
       return(
-        <button onClick={takeTrip}>TAKE TRIP</button> //TODO: Add logic to do trip update out of queue
+        <button onClick={takeTrip}>TAKE TRIP</button> 
       );
     } else if ((tripSent === 'Drive' && trip.state === 'IN_PROGRESS') || (tripSent === 'Admin' && trip.state === 'IN_PROGRESS')){// If this page is generated for a Driver
       return(
-        <button onClick={completeTrip}>COMPLETE</button> //TODO: Add logic to do trip update out of queue
+        <button onClick={completeTrip}>COMPLETE</button> 
       );
     } else if (tripSent === 'Admin'){// If this page is generated for a Driver
       return(
@@ -130,20 +135,20 @@ function Trip() {
         Passenger Raiting: {trip.driverRating}*<br></br>
         </p>
       )
-    } else if (trip.state === 'IN_QUEUE' && tripSent === 'Ride'){
+      }else if (trip.state === 'IN_QUEUE' && tripSent === 'Drive'){
+        return (
+          <form>
+            <label>Enter your Driver Email:
+              <input type="text" onChange={(e) => setDriverEmail(e) } />
+            </label>
+          </form>
+        )
+      }else if (trip.state === 'IN_QUEUE'){
       return (
         <p>Searching...</p>
       )
     }
-    else if (trip.state === 'IN_QUEUE' && tripSent === 'Drive'){
-      return (
-        <form>
-          <label>Enter your Driver Email:
-            <input type="text" onChange={(e) => setDriverEmail(e) } />
-          </label>
-        </form>
-      )
-    }
+
   }
 
 

@@ -16,7 +16,7 @@ const AdminTrip = ({ trip }) => {
             <td>{trip.state !== "IN_QUEUE" ? trip.driver_userID : 'Finding Driver'}</td>
             <td>${trip.price.toFixed(2)}</td>
             <td>
-                <Button text="View" onClick={() => navigate('/Trip', {state: {tripI: trip, status: 'Admin'}} )}/>
+                <Button text="View" onClick={() => navigate('/Trip', {state: {tripID: trip.tripID, status: 'Admin'}} )}/>
             </td>
         </tr>
 

@@ -114,6 +114,42 @@ class TripRepository {
         const data = this._database.pagination.emptyOrRows(rows)
         return data 
     }
+
+    async retrieveTripsByStateID(state, id, page, listPerPage){
+        const offset = this._database.pagination.getOffset(page, listPerPage)
+        var sql;
+        if(state == "IN_QUEUE") {
+            sql = "SELECT * FROM PASSENGER p, TRIP t WHERE p.userID IN \
+        (SELECT passengerID FROM PASSENGER_TRIPS WHERE tripID = t.tripID) AND t.state=? AND t.tripID ="+ id +";" 
+        }
+        else{
+            sql = `SELECT t.*,
+            p.fname      AS passenger_fname,
+            p.lname      AS passenger_lname,
+            p.userid     AS passenger_userID,
+            p.dob        AS passenger_dob,
+            d.fname      AS driver_fname,
+            d.lname      AS driver_lname,
+            d.userid     AS driver_userID,
+            d.dob        AS driver_dob
+     FROM   passenger p,
+            driver d,
+            trip t
+     WHERE  p.userid IN (SELECT passengerid
+                         FROM   passenger_trips
+                         WHERE  tripid = t.tripid)
+            AND d.userid IN (SELECT driverid
+                             FROM   driver_trips
+                             WHERE  tripid = t.tripid)
+            AND t.state=?
+            AND t.tripID =`+ id +';'
+        }
+
+        const params = [state]
+        const rows = await this._database.query(sql, params)
+        const data = this._database.pagination.emptyOrRows(rows)
+        return data 
+    }
 }
 
 module.exports = {TripRepository}

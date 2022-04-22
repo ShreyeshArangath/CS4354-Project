@@ -37,7 +37,7 @@ function Ride() {
       console.log("Requested the trip")
       console.log({ data })
       alert("Requested A Trip")
-      navigate('/Trip', {state: {tripI: data, status: 'Ride'}} )
+      navigate('/Trip', {state: {tripID: data.tripID, status: 'Ride'}} )
     }
     catch (e) {
       console.log(e)

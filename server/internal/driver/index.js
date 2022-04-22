@@ -28,7 +28,7 @@ function getDriverRouter(driverController) {
         * @apiParam tripID                          ID of the trip selected by the driver           
         * @apiSuccess {data}                        Trip Details   
     */
-    router.get("/trips/:tripID", async function(req, res, next) {
+    router.get("/trip/:tripID", async function(req, res, next) {
         try {
             const tripID = req.params.tripID 
             if (tripID){
