@@ -26,12 +26,10 @@ class TripStatusForm extends React.Component {
       return (
         <form onSubmit={this.handleSubmit}>
           <label>
-            
             <select value={this.state.value} onChange={this.handleChange}>
               <option value="IN_QUEUE">In Queue</option>
               <option value="IN_PROGRESS">In Progress</option>
               <option value="COMPLETED">Completed</option>
-              
             </select>
           </label>
           <input type="submit" value="Submit" />
