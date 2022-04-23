@@ -100,7 +100,7 @@ function Trip() {
   }
 
 
-  function showButtons() {
+  function showButtons() { // TODO: add functionality to rate driver and passenger
     if (tripSent === 'Ride' && trip.state === 'IN_QUEUE'){// If this page is generated for Passenger
       return(
         <button onClick={deleteTrip}>CANCEL</button> 

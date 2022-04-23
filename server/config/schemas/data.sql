@@ -20,20 +20,20 @@ ALTER TABLE PAYMENT AUTO_INCREMENT=1;
 
 -- Trips 
 -- IN QUEUE - Dorsey 
-INSERT INTO TRIP(PRICE, STATE, toAddress, fromAddress, tripRequestedTime) 
-VALUES(50, "IN_QUEUE", "2210 Main St, Lubbock TX", "2212 Main St, Lubbock TX", CURTIME());
+INSERT INTO TRIP(PRICE, STATE, toAddress, fromAddress, tripRequestedTime, numPassengers) 
+VALUES(50, "IN_QUEUE", "2210 Main St, Lubbock TX", "2212 Main St, Lubbock TX", CURTIME(), 1);
 
 -- In Progesss - Zuck & Elon 
-INSERT INTO TRIP(PRICE, STATE, toAddress, fromAddress, tripRequestedTime) 
-VALUES(150, "IN_PROGRESS", " 1 Hacker Way, Menlo Park, CA", "Giga Factory, Austin, TX", CURTIME());
+INSERT INTO TRIP(PRICE, STATE, toAddress, fromAddress, tripRequestedTime, numPassengers) 
+VALUES(150, "IN_PROGRESS", " 1 Hacker Way, Menlo Park, CA", "Giga Factory, Austin, TX", CURTIME(), 1);
 
 -- completed satya, tim
-INSERT INTO TRIP(PRICE, STATE, toAddress, fromAddress, tripRequestedTime) 
-VALUES(20.95, "COMPLETED", " One Microsoft Way Redmond, WA", "1 Apple Park Way, Cupertino, CA", CURTIME());
+INSERT INTO TRIP(PRICE, STATE, toAddress, fromAddress, tripRequestedTime, numPassengers) 
+VALUES(20.95, "COMPLETED", " One Microsoft Way Redmond, WA", "1 Apple Park Way, Cupertino, CA", CURTIME(), 2);
 
 -- in queue - tim 
-INSERT INTO TRIP(PRICE, STATE, toAddress, fromAddress, tripRequestedTime) 
-VALUES(22, "IN_QUEUE", "605 W Maude Ave, Sunnyvale, CA", "1 Apple Park Way, Cupertino, CA", CURTIME());
+INSERT INTO TRIP(PRICE, STATE, toAddress, fromAddress, tripRequestedTime, numPassengers) 
+VALUES(22, "IN_QUEUE", "605 W Maude Ave, Sunnyvale, CA", "1 Apple Park Way, Cupertino, CA", CURTIME(), 3);
 
 SELECT * FROM TRIP;
 
