@@ -1,4 +1,5 @@
 import Header from '../components/Header'
+import ReactStars from 'react-stars'
 import {useState, useEffect} from 'react'
 
 import React from 'react';
@@ -12,20 +13,14 @@ function Trip() {
 
   const location = useLocation();
   const tripSent = location.state?.status; //the page this state came from
-
-  //Get this from API request
-  const initTripID = location.state?.tripID
+  const initTripID = location.state?.tripID // The trip id (sent from previous page)
   const [trip, setTrip] = useState("")
   const [driverPay, setDriverPay] = useState(0)
   const [driverEmail, setDriverEmail] = useState("")
-  //const [passenger, setPassenger] = useState(0)
+  const [rating, setRating] = useState(5)
 
-    //TODO: TestDelete Trip for Admin / Cancel trip
-    //      Add Take Trip Functionality
-    //      Add functonality to take you here from make a Trip
-    //      New API call for the trip on refresh 
-  const makeAPICall = async () => {
-    const tripCallStr = 'http://localhost:9000/api/driver/trip/'+initTripID
+  const makeAPICall = async () => { 
+    const tripCallStr = 'http://localhost:9000/api/driver/trip/'+initTripID // Get the trip
     console.log(tripCallStr)
     try{
       
@@ -40,7 +35,7 @@ function Trip() {
     }
 
     try {
-      const paymentCallStr = 'http://localhost:9000/api/driver/trips/payment/'+initTripID
+      const paymentCallStr = 'http://localhost:9000/api/driver/trips/payment/'+initTripID // Get the driver payment Info
       const responseDP = await fetch(paymentCallStr, {mode:'cors'});
       const dataDP = await responseDP.json();
       console.log("We got driver Payment"); // Payment info does not generate for new trips
@@ -77,7 +72,7 @@ function Trip() {
       const data = await response.json();
       console.log("Taking Trip");
       console.log({ data })
-      navigate('/Trip', {state: {tripI: trip, status: 'Drive'}} )
+      makeAPICall()
     }
     catch (e) {
       console.log(e)
@@ -90,9 +85,35 @@ function Trip() {
       const response = await fetch('http://localhost:9000/api/driver/trips/completed/'+trip.tripID,
        {method: 'POST', mode:'cors'});
       const data = await response.json();
-      console.log("Taking Trip");
+      console.log("Completing Trip");
       console.log({ data })
-      navigate('/Trip', {state: {tripI: trip, status: 'Drive'}} )
+      makeAPICall()
+    }
+    catch (e) {
+      console.log(e)
+    }
+  }
+  const rateUser = async () => {
+    try {
+      console.log("Trying to rate a Trip w/ rating:" + rating);
+      const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ "rating": rating } ) };
+      
+      if (tripSent === "Drive"){// Then we are rating a passenger
+        const response = await fetch('http://localhost:9000/api/driver/trips/rating/'+trip.tripID,
+        requestOptions);
+        const data = await response.json();
+        console.log({ data })
+      } else{ // Then we are rating a driver
+        const response = await fetch('http://localhost:9000/api/passenger/trips/rating/'+trip.tripID,
+        requestOptions);
+        const data = await response.json();
+        console.log({ data })
+      }
+      console.log("Rated a Trip");
+      navigate('/') // Navigate back home to make sure they cant submit this twice
     }
     catch (e) {
       console.log(e)
@@ -101,45 +122,57 @@ function Trip() {
 
 
   function showButtons() {
-    if (tripSent === 'Ride' && trip.state === 'IN_QUEUE'){// If this page is generated for Passenger
+    if (tripSent === 'Ride' && trip.state === 'IN_QUEUE'){
       return(
         <button onClick={deleteTrip}>CANCEL</button> 
       );
-    } else if (tripSent === 'Drive' && trip.state === 'IN_QUEUE' ){// If this page is generated for a Driver
+    } else if (tripSent === 'Drive' && trip.state === 'IN_QUEUE' ){
       return(
         <button onClick={takeTrip}>TAKE TRIP</button> 
       );
-    } else if ((tripSent === 'Drive' && trip.state === 'IN_PROGRESS') || (tripSent === 'Admin' && trip.state === 'IN_PROGRESS')){// If this page is generated for a Driver
+    } else if ((tripSent === 'Drive' && trip.state === 'IN_PROGRESS') || (tripSent === 'Admin' && trip.state === 'IN_PROGRESS')){
       return(
         <button onClick={completeTrip}>COMPLETE</button> 
       );
-    } else if (tripSent === 'Admin'){// If this page is generated for a Driver
+    } else if (tripSent === 'Admin'){
       return(
         <>
         <button onClick={deleteTrip}>DELETE</button> 
         </>
       );
-    }
+    } // On Trip Completion
+    else if (trip.state === 'COMPLETED' && (tripSent === 'Drive' || tripSent === 'Ride') ){//
+      return(
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'}}>
+          <ReactStars
+            count={5}
+            onChange={(rat) => setRating(rat)}
+            size={24}
+            color2={'#ffd700'} />
+            <br></br>
+            <br></br>
+            <button onClick={rateUser}>Submit Rating</button> 
+          </div>
+      );
+   }
   }
 
-//
-
-//Est. Wait: {trip.estWait} min <br></br>
-//Trip Distance: {trip.distance} mi <br></br>
   function driver() {
-    
     if (trip.state !== 'IN_QUEUE') {
       return (
         <p>
         Driver Name: {trip.driver_fname} {trip.driver_lname}<br></br>
-        Passenger Raiting: {trip.driverRating}*<br></br>
+        Driver Raiting: {trip.driverRating}*<br></br>
         </p>
       )
       }else if (trip.state === 'IN_QUEUE' && tripSent === 'Drive'){
         return (
           <form>
             <label>Enter your Driver Email:
-              <input type="text" onChange={(e) => setDriverEmail(e) } />
+              <input type="text" onChange={(e) => {setDriverEmail(e)}} />
             </label>
           </form>
         )
@@ -148,9 +181,9 @@ function Trip() {
         <p>Searching...</p>
       )
     }
-
   }
 
+  
 
   return (
     <div className="Unter">
@@ -168,7 +201,7 @@ function Trip() {
 
       <h3>Passenger</h3> 
       <p>
-      Passenger Name: {trip.fname} {trip.lname}<br></br>
+      Passenger Name: {trip.fname || trip.passenger_fname} {trip.lname || trip.passenger_lname} <br></br>
       Passenger Raiting: {trip.passengerRating}*<br></br>
       Number of Passengers: {trip.numPassengers}
       </p>

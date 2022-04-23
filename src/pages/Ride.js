@@ -71,7 +71,6 @@ function Ride() {
         </h2>
 
         <LocationInput  saveData={onUpdate} title1="Starting Location" title2="Destination Location"/>
-        <TripConfirmationForm saveData={confirmTrip} tripInfo={confTrip} onSubmit={createTrip}/>
       </div>
     </div>
   );

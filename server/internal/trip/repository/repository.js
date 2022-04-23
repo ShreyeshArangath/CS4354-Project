@@ -65,8 +65,8 @@ class TripRepository {
     }
 
     async insertTrip(trip) {
-        const sql = "INSERT INTO `TRIP` (PRICE, STATE, toAddress, fromAddress, tripRequestedTime) VALUES(?, ?, ?, ?, CURTIME());"
-        const params = [trip.price, trip.state, trip.from, trip.to]
+        const sql = "INSERT INTO `TRIP` (PRICE, STATE, toAddress, fromAddress, tripRequestedTime, numPassengers) VALUES(?, ?, ?, ?, CURTIME(), ?);"
+        const params = [trip.price, trip.state, trip.from, trip.to, trip.numPassengers]
         const rows = await this._database.query(sql, params)
         const lastInsertID  = rows.insertId
         return lastInsertID

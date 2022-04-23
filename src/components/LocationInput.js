@@ -12,15 +12,15 @@ export default function LocationInput({saveData, title1, title2}) {
             <div className='divLoc w3-boarder-rad-10 w3-padding-16'>
                 <h2>{title1}</h2>
                 <label>Address:</label>
-                <input id="from" 
-                {...register('from')} />
+                <input id="to" 
+                {...register('to')} />
             </div>
             <br></br>
             <div className='divLoc w3-boarder-rad-10 w3-padding-16'>
                 <h2>{title2}</h2>
                 <label>Address:</label>
-                <input id="to" 
-                {...register('to')} />
+                <input id="from" 
+                {...register('from')} />
             </div>
             <label>Number of Passengers</label>
             <input id="numPassengers" 
