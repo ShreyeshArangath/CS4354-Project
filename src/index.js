@@ -21,9 +21,9 @@ ReactDOM.render(
       <Route path='/Ride' element={<Ride />} />
       <Route path='/Admin' element={<Admin />} />
       <Route path='/Trip' element={<Trip />} />
-      <Route path='/Admin/Completed' element={<AdminCompleted />} />
-      <Route path='/Admin/InProgress' element={<AdminCompleted />} />
-      <Route path='/Admin/InQueue' element={<AdminCompleted />} />
+      <Route path='/Admin/COMPLETED' element={<AdminCompleted />} />
+      <Route path='/Admin/IN_PROGRESS' element={<AdminCompleted />} />
+      <Route path='/Admin/IN_QUEUE' element={<AdminCompleted />} />
     </Routes>
   </BrowserRouter>,
   rootElement

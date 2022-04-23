@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 function Admin() {
 
-  const [tripState, setTripState] = useState('InQueue')
+  const [tripState, setTripState] = useState('IN_QUEUE')
 
   const navigate = useNavigate();
 
@@ -17,7 +17,6 @@ function Admin() {
       <h2>
       Admin
       </h2>
-      Add Credentials or something
       <TripStatusForm tripState={tripState} 
       redirectTo={(navTo,stateF) => {navigate('/'+navTo, stateF)}}/>
     </div>

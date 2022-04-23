@@ -11,55 +11,24 @@ export default function LocationInput({saveData, title1, title2}) {
         <form onSubmit={handleSubmit((data) => saveData(data))}>
             <div className='divLoc w3-boarder-rad-10 w3-padding-16'>
                 <h2>{title1}</h2>
-                <label>Address Line 1</label>
-                <input id="fromAddrLine1" 
-                {...register('fromAddrLine1')} />
-                <label>Address Line 2</label>
-                <input id="fromAddrLine2" 
-                {...register('fromAddrLine2')} />
-                <label>City</label>
-                <input id="fromCity" 
-                {...register('fromCity')} />
-                <label>State</label>
-                <input id="fromState" 
-                {...register('fromState')} />
-                <label>Zip Code</label>
-                <input id="fromZipCode" 
-                {...register('fromZipCode')} />
-                <label>Country</label>
-                <input id="fromCountry" 
-                {...register('fromCountry')} />
+                <label>Address:</label>
+                <input id="from" 
+                {...register('from')} />
             </div>
             <br></br>
             <div className='divLoc w3-boarder-rad-10 w3-padding-16'>
                 <h2>{title2}</h2>
-                <label>Address Line 1</label>
-                <input id="toAddrLine1" 
-                {...register('toAddrLine1')} />
-                <label>Address Line 2</label>
-                <input id="toAddrLine2" 
-                {...register('toAddrLine2')} />
-                <label>City</label>
-                <input id="toCity" 
-                {...register('toCity')} />
-                <label>State</label>
-                <input id="toState" 
-                {...register('toState')} />
-                <label>Zip Code</label>
-                <input id="toZipCode" 
-                {...register('toZipCode')} />
-                <label>Country</label>
-                <input id="toCountry" 
-                {...register('toCountry')} />
+                <label>Address:</label>
+                <input id="to" 
+                {...register('to')} />
             </div>
             <label>Number of Passengers</label>
-            <input id="numPass" 
-            {...register('numPass')} />
+            <input id="numPassengers" 
+            {...register('numPassengers')} />
             <label>Email</label>
-            <input id="usrEmail" 
-            {...register('usrEmail')} />
+            <input id="passengerID" 
+            {...register('passengerID')} />
             <br></br>
-            fyi theres no data validation so gl backend
             <input type="submit" className="submitButton" />
         </form>
       );

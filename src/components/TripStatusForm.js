@@ -28,9 +28,9 @@ class TripStatusForm extends React.Component {
           <label>
             
             <select value={this.state.value} onChange={this.handleChange}>
-              <option value="InQueue">In Queue</option>
-              <option value="InProgress">In Progress</option>
-              <option value="Completed">Completed</option>
+              <option value="IN_QUEUE">In Queue</option>
+              <option value="IN_PROGRESS">In Progress</option>
+              <option value="COMPLETED">Completed</option>
               
             </select>
           </label>

@@ -31,7 +31,7 @@ function getAdminRouter(adminController) {
     })
 
     /**
-      * @api {get} api/admin/trips/:staet       Get all trips based on a given staet
+      * @api {get} api/admin/trips/:state       Get all trips based on a given state
       * @apiName GetTripsByState 
       * @apiGroup Admin
       * @apiParam state                           state of the trip selected by the admin           
