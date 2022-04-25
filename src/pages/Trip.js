@@ -67,7 +67,7 @@ function Trip() {
   const takeTrip = async () => {
     alert('Taking Trip. Do not lose page.')
     try {
-      const response = await fetch('http://localhost:9000/api/driver/trips/accept/'+trip.tripID+'&'+driverEmail["nativeEvent"]["data"],
+      const response = await fetch('http://localhost:9000/api/driver/trips/accept/'+trip.tripID+'&'+driverEmail,
        {method: 'POST', mode:'cors'});
       const data = await response.json();
       console.log("Taking Trip");
@@ -172,7 +172,7 @@ function Trip() {
         return (
           <form>
             <label>Enter your Driver Email:
-              <input type="text" onChange={(e) => {setDriverEmail(e)}} />
+              <input type="text" onChange={(e) => {setDriverEmail(e.target.value)}} />
             </label>
           </form>
         )

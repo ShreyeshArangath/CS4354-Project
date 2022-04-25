@@ -171,7 +171,7 @@ function getDriverRouter(driverController) {
             const tripID = req.params.tripID
             const rating = req.body.rating 
             if (tripID && rating) {
-                const metadata = await driverController.rateTrip(tripID, rateTrip)
+                const metadata = await driverController.rateTrip(tripID, rating)
                 res.json(metadata)
             } 
             else {
