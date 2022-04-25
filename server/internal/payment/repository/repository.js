@@ -5,7 +5,7 @@ class PaymentRepository {
 
     async insertPayment(tripId, paymentMethod) {
         // Insert into the Payment table 
-        const sql = "INSERT INTO `PAYMENTS` (tripID, transactionID) VALUES (?, ?);"
+        const sql = "INSERT INTO `PAYMENT` (tripID, paymentMethod) VALUES (?, ?);"
         const params = [tripId, paymentMethod]
         const rows = await this._database.query(sql, params)
         const lastInsertID  = rows.insertId

@@ -39,10 +39,15 @@ class DriverController {
         return this._tripRepo.updateTripState(tripId, state)
     }
 
+    async insertPaymentAmount(tripID) {
+        return this._paymentRepo.insertPayment(tripID, "CREDIT")
+    }
+
     async getDriverPaymentAmount(tripID) { 
         const DRIVER_CUT_PERCENTAGE = 80;
+        this.insertPaymentAmount(tripID)
         const data = await this._paymentRepo.retrieveTripPrice(tripID)
-        const driverPaymentAmount = data[0]["PRICE"]
+        const driverPaymentAmount = data[0]["PRICE"] 
         return driverPaymentAmount*DRIVER_CUT_PERCENTAGE/100
     }
 
