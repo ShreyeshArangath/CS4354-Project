@@ -2,7 +2,7 @@ import Header from '../components/Header'
 import DriverTrips from '../components/DriverTrips'
 import {useState, useEffect} from 'react'
 import React from 'react';
-
+import {Button} from '@mui/material'
 
 function Drive() {
 
@@ -44,9 +44,9 @@ function Drive() {
 
       <DriverTrips trips={trips}/>
       <p> 
-        <button onClick={() => changePage(-1)}>{"<"}</button>
+        <Button  onClick={() => changePage(-1)}>{"<"}</Button>
         {page}
-        <button onClick={() => changePage(1)}>{">"}</button>
+        <Button  onClick={() => changePage(1)}>{">"}</Button>
       </p>
     </div>
   );

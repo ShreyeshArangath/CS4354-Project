@@ -1,4 +1,4 @@
-import Button from "./Button";
+import {Button} from '@mui/material'
 import { useNavigate } from 'react-router-dom';
 
 //TODO: Link GO button to a new page
@@ -14,7 +14,7 @@ const DriverTrip = ({ trip, onTripSelect }) => {
             <td>{trip.fname} {trip.lname} - {trip.passengerRating}* - {trip.numPassengers} Person</td>
             <td>${trip.price}</td>
             <td>
-                <Button text="GO"  onClick={() => navigate('/Trip', {state: {tripID: trip.tripID, status: 'Drive'}} )}/>
+                <Button  variant="outlined" onClick={() => navigate('/Trip', {state: {tripID: trip.tripID, status: 'Drive'}} )}> GO </Button> 
             </td>
         </tr>
 

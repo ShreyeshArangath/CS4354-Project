@@ -1,13 +1,14 @@
 import PropTypes from 'prop-types'
+import {Button as MUIButton} from '@mui/material'
 
 const Button = ({ color, text, onClick }) => {
 
     return(
-        <button onClick={onClick}
+        <MUIButton variant="outlined" onClick={onClick}
         className="btn"
          style={{ backgroundColor: color }} >
             {text}
-        </button>
+        </MUIButton>
     )
 }
 

@@ -4,7 +4,7 @@ import {useState, useEffect} from 'react'
 
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-
+import {Button} from '@mui/material'
 
 
 function Trip() {
@@ -122,22 +122,23 @@ function Trip() {
 
 
   function showButtons() {
+
     if (tripSent === 'Ride' && trip.state === 'IN_QUEUE'){
       return(
-        <button onClick={deleteTrip}>CANCEL</button> 
+        <Button variant='outlined' onClick={deleteTrip}>CANCEL</Button> 
       );
     } else if (tripSent === 'Drive' && trip.state === 'IN_QUEUE' ){
       return(
-        <button onClick={takeTrip}>TAKE TRIP</button> 
+        <Button variant='outlined' onClick={takeTrip}>TAKE TRIP</Button> 
       );
     } else if ((tripSent === 'Drive' && trip.state === 'IN_PROGRESS') || (tripSent === 'Admin' && trip.state === 'IN_PROGRESS')){
       return(
-        <button onClick={completeTrip}>COMPLETE</button> 
+        <Button variant='outlined' onClick={completeTrip}>COMPLETE</Button> 
       );
     } else if (tripSent === 'Admin'){
       return(
         <>
-        <button onClick={deleteTrip}>DELETE</button> 
+        <Button  variant='outlined' onClick={deleteTrip}>DELETE</Button> 
         </>
       );
     } // On Trip Completion

@@ -12,13 +12,16 @@ code {
     monospace;
 }
 
-.Unter {
+.Unter{
   text-align: center;
   justify-content: center;
   align-items: center;
 }
 
-
+.main-btn *{
+  padding: 10px;
+  justify-content: space-between;
+}
 
 .header-main__wrapper {
   background-color: #518065;

@@ -1,6 +1,7 @@
 import Header from '../components/Header'
 import AdminTrips from '../components/AdminTrips'
 import React, {useState, useEffect} from 'react'
+import {Button} from '@mui/material'
 
 import { useLocation } from 'react-router-dom';
 
@@ -45,11 +46,11 @@ function AdminCompleted() {
       Admin - {tripState}
       </h2>
       <AdminTrips trips={trips} />
-      <p> 
-        <button onClick={() => changePage(-1)}>{"<"}</button>
+      <div> 
+        <Button  onClick={() => changePage(-1)}>{"<"}</Button>
         {page}
-        <button onClick={() => changePage(1)}>{">"}</button>
-      </p>
+        <Button  onClick={() => changePage(1)}>{">"}</Button>
+      </div>
       
     </div>
   );

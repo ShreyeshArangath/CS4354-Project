@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 const Header = ({title}) => {
     return(
         <header className="header-main__wrapper">
-            <Link to='/'>
+            <Link style={{textDecoration: "none"}} to='/'>
                 <img src={logo}
                     className='header-main__log w3-left'
                     alt="Logo" 
@@ -12,7 +12,7 @@ const Header = ({title}) => {
                     width="80" height="80"
                     ></img> 
              </Link>
-                <h1 className='header-main__log w3-left'
+                <h1 className='header-main__log w3-left text'
                 > {title} </h1>
         </header>
     )
