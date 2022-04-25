@@ -65,7 +65,7 @@ function getAdminRouter(adminController) {
     router.get("/passengers", async function (req, res, next) {
         try {
             const data = await adminController.getAllPassengers()
-            res.json(data)
+            res.json(data[0])
         } catch (err) {
             const errMessage = "Error while retrieving passengers" + err.message
             res.status(404)
@@ -83,7 +83,7 @@ function getAdminRouter(adminController) {
     router.get("/drivers", async function (req, res, next) {
         try {
             const data = await adminController.getAllDrivers()
-            res.json(data)
+            res.json(data[0])
         } catch (err) {
             const errMessage = "Error while retrieving drivers" + err.message
             res.status(404)
