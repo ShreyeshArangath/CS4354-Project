@@ -30,6 +30,8 @@ class TripStatusForm extends React.Component {
               <option value="IN_QUEUE">In Queue</option>
               <option value="IN_PROGRESS">In Progress</option>
               <option value="COMPLETED">Completed</option>
+              <option value="DRIVERS">Drivers</option>
+              <option value="PASSENGERS">Passengers</option>
             </select>
           </label>
           <input type="submit" value="Submit" />

@@ -8,7 +8,7 @@ import Drive from './pages/Drive';
 import Ride from './pages/Ride';
 import Admin from './pages/Admin';
 import Trip from './pages/Trip';
-import AdminCompleted from './pages/AdminCompleted';
+import AdminTrips from './pages/AdminCompleted';
 import reportWebVitals from './reportWebVitals';
 
 
@@ -21,9 +21,11 @@ ReactDOM.render(
       <Route path='/Ride' element={<Ride />} />
       <Route path='/Admin' element={<Admin />} />
       <Route path='/Trip' element={<Trip />} />
-      <Route path='/Admin/COMPLETED' element={<AdminCompleted />} />
-      <Route path='/Admin/IN_PROGRESS' element={<AdminCompleted />} />
-      <Route path='/Admin/IN_QUEUE' element={<AdminCompleted />} />
+      <Route path='/Admin/COMPLETED' element={<AdminTrips />} />
+      <Route path='/Admin/IN_PROGRESS' element={<AdminTrips />} />
+      <Route path='/Admin/IN_QUEUE' element={<AdminTrips />} />
+      <Route path='/Admin/DRIVERS' element={<AdminTrips />} />
+      <Route path='/Admin/PASSENGERS' element={<AdminTrips />} />
     </Routes>
   </BrowserRouter>,
   rootElement
